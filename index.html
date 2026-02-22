@@ -441,3 +441,67 @@
       <div class="card third reveal">
         <h2>Security</h2>
         <p>Kon
+          <h2>Security</h2>
+<p>Konfigurim bazik sigurie: HTTPS, DNS hygiene, anti-spoofing (SPF, DKIM, DMARC).</p>
+</div>
+</section>
+
+<section id="contact" class="grid" style="margin-top:16px">
+  <div class="card reveal">
+    <h2>Contact</h2>
+    <p>Kontakto direkt me email ose WhatsApp:</p>
+
+    <div class="btnrow">
+      <a class="btn primary"
+         href="mailto:flamurjashari@gmx.com?subject=Website%20Inquiry%20-%20Flamur%20Jashari">
+        📧 Email
+      </a>
+
+      <a class="btn"
+         target="_blank"
+         rel="noopener"
+         href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
+        💬 WhatsApp
+      </a>
+    </div>
+
+    <p style="margin-top:14px" class="muted">
+      Email:
+      <a class="inline" href="mailto:flamurjashari@gmx.com">
+        flamurjashari@gmx.com
+      </a>
+      <br/>
+
+      WhatsApp:
+      <a class="inline"
+         target="_blank"
+         rel="noopener"
+         href="https://wa.me/38346124923">
+        +383 46 124 923
+      </a>
+    </p>
+  </div>
+</section>
+
+<div class="footer reveal">
+  © <span id="y"></span> Flamur Jashari
+</div>
+</main>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  const els = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("show");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
