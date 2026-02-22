@@ -41,9 +41,10 @@
     "@context":"https://schema.org",
     "@type":"Person",
     "name":"Flamur Jashari",
-    "jobTitle":"Web Developer",
+    "jobTitle":"Web Developer + IT Support",
     "address":{"@type":"PostalAddress","addressCountry":"Albania","addressLocality":"Tiranë"},
     "email":"mailto:flamurjashari@gmx.com",
+    "telephone":"+38346124923",
     "url":"https://flamurjashari.com/",
     "sameAs":[
       "https://instagram.com/flamurjashari7",
@@ -186,7 +187,7 @@
       background: linear-gradient(135deg, rgba(56,189,248,.95), rgba(129,140,248,.75));
       color:#071018;
       border-color: rgba(56,189,248,.35);
-      font-weight:700;
+      font-weight:800;
     }
     .btn:hover{
       transform: translateY(-2px);
@@ -300,33 +301,33 @@
     }
     a.inline:hover{border-bottom-style: solid}
 
-    /* Social icons row */
+    /* Social row (Instagram / Facebook / X) */
     .socials{
       display:flex;
-      gap:12px;
       flex-wrap:wrap;
+      gap:10px;
       margin-top:14px;
     }
-    .iconbtn{
+    .social{
       display:inline-flex;
       align-items:center;
-      justify-content:center;
-      width:46px;
-      height:46px;
-      border-radius:14px;
-      border:1px solid rgba(148,163,184,.20);
+      gap:10px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.2);
       background: rgba(11,18,32,.55);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-      text-decoration:none;
       color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
     }
-    .iconbtn:hover{
+    .social:hover{
       transform: translateY(-2px);
-      box-shadow: var(--shadow);
       border-color: rgba(56,189,248,.35);
+      box-shadow: var(--shadow);
       background: rgba(11,18,32,.75);
     }
-    .iconbtn svg{width:22px; height:22px; opacity:.95}
+    .social svg{width:18px; height:18px; opacity:.95}
 
     /* Floating WhatsApp */
     .wa-float{
@@ -341,7 +342,7 @@
       border-radius:999px;
       text-decoration:none;
       color:#071018;
-      font-weight:800;
+      font-weight:900;
       background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
       border:1px solid rgba(34,197,94,.5);
       box-shadow: 0 18px 60px rgba(0,0,0,.35);
@@ -388,6 +389,7 @@
             </span>
             Contact
           </a>
+
           <a class="btn" href="#services" aria-label="Shko te Services">
             <span class="ico">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -435,72 +437,95 @@
       <div class="card third reveal">
         <h2>Performance</h2>
         <p>Optimizim speed (Core Web Vitals), cache, imazhe & best practices.</p>
-        <p class="muted"></p>
+        <p class="muted">Që faqja me u hap shpejt edhe në mobile.</p>
       </div>
 
       <div class="card third reveal">
-        
-          <h2>Security</h2>
-<p>Konfigurim bazik sigurie: HTTPS, DNS hygiene, anti-spoofing (SPF, DKIM, DMARC).</p>
-</div>
-</section>
+        <h2>Security</h2>
+        <p>Konfigurim bazik sigurie: HTTPS, DNS hygiene, anti-spoofing (SPF, DKIM, DMARC).</p>
+        <p class="muted">Mbrojtje bazike kundër spoofing + konfigurim i pastër DNS.</p>
+      </div>
+    </section>
 
-<section id="contact" class="grid" style="margin-top:16px">
-  <div class="card reveal">
-    <h2>Contact</h2>
-    <p>Kontakto direkt me email ose WhatsApp:</p>
+    <section id="contact" class="grid" style="margin-top:16px">
+      <div class="card reveal">
+        <h2>Contact</h2>
+        <p>Kontakto direkt me email, WhatsApp, ose rrjete sociale:</p>
 
-    <div class="btnrow">
-      <a class="btn primary"
-         href="mailto:flamurjashari@gmx.com?subject=Website%20Inquiry%20-%20Flamur%20Jashari">
-        📧 Email
-      </a>
+        <div class="btnrow">
+          <a class="btn primary"
+             href="mailto:flamurjashari@gmx.com?subject=Website%20Inquiry%20-%20Flamur%20Jashari">
+            📧 Email
+          </a>
 
-      <a class="btn"
-         target="_blank"
-         rel="noopener"
-         href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
-        💬 WhatsApp
-      </a>
+          <a class="btn"
+             target="_blank"
+             rel="noopener"
+             href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
+            💬 WhatsApp
+          </a>
+        </div>
+
+        <!-- Social icons -->
+        <div class="socials" aria-label="Social links">
+          <a class="social" target="_blank" rel="noopener" href="https://instagram.com/flamurjashari7" aria-label="Instagram">
+            <!-- Instagram icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7.5 2.8h9A4.7 4.7 0 0 1 21.2 7.5v9a4.7 4.7 0 0 1-4.7 4.7h-9A4.7 4.7 0 0 1 2.8 16.5v-9A4.7 4.7 0 0 1 7.5 2.8Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 16.2A4.2 4.2 0 1 0 12 7.8a4.2 4.2 0 0 0 0 8.4Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M17.3 6.9h.01" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            Instagram
+          </a>
+
+          <a class="social" target="_blank" rel="noopener" href="https://facebook.com/flamurjashari4" aria-label="Facebook">
+            <!-- Facebook icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14 8.5V7.3c0-.8.4-1.3 1.4-1.3H17V3.2h-2.2C12.7 3.2 12 4.7 12 6.9v1.6H10v2.6h2V21h3v-9.9h2.1l.3-2.6H15Z" fill="currentColor"/>
+            </svg>
+            Facebook
+          </a>
+
+          <a class="social" target="_blank" rel="noopener" href="https://x.com/flamurjashari4" aria-label="X">
+            <!-- X icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18.6 3H21l-5.2 6 6.1 12h-4.3l-3.9-7.7L7.6 21H5.2l5.7-6.7L5 3h4.4l3.5 6.7L18.6 3Zm-1.5 16h1.2L8 4.9H6.7l10.4 14.1Z" fill="currentColor"/>
+            </svg>
+            X
+          </a>
+        </div>
+
+        <p style="margin-top:14px" class="muted">
+          Email:
+          <a class="inline" href="mailto:flamurjashari@gmx.com">flamurjashari@gmx.com</a><br/>
+          WhatsApp:
+          <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
+          Lokacion: Albania / Tiranë
+        </p>
+      </div>
+    </section>
+
+    <div class="footer reveal">
+      © <span id="y"></span> Flamur Jashari
     </div>
+  </main>
 
-    <p style="margin-top:14px" class="muted">
-      Email:
-      <a class="inline" href="mailto:flamurjashari@gmx.com">
-        flamurjashari@gmx.com
-      </a>
-      <br/>
+  <script>
+    // Year
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-      WhatsApp:
-      <a class="inline"
-         target="_blank"
-         rel="noopener"
-         href="https://wa.me/38346124923">
-        +383 46 124 923
-      </a>
-    </p>
-  </div>
-</section>
+    // Scroll reveal
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("show");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
 
-<div class="footer reveal">
-  © <span id="y"></span> Flamur Jashari
-</div>
-</main>
-
-<script>
-  document.getElementById("y").textContent = new Date().getFullYear();
-
-  const els = document.querySelectorAll(".reveal");
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("show");
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  els.forEach(el => io.observe(el));
-</script>
+    els.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
