@@ -1,141 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flamur Jashari — Web Developer</title>
+
+  <title>Flamur Jashari — Web Developer & IT Support</title>
+  <meta name="description" content="Flamur Jashari — Web Developer + IT Support. Ndihmoj me krijim website, optimizim performance, konfigurim domain/DNS dhe zgjidhje teknike për pajisje & rrjete." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://flamurjashari.com/" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Flamur Jashari — Web Developer & IT Support" />
+  <meta property="og:description" content="Krijim website, optimizim performance, konfigurim domain/DNS dhe IT support për rrjete & pajisje." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flamurjashari.com/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Flamur Jashari — Web Developer & IT Support" />
+  <meta name="twitter:description" content="Krijim website, optimizim performance, konfigurim domain/DNS dhe IT support." />
+
+  <!-- Favicon (SVG data-uri, initialet FJ) -->
+  <link rel="icon" type="image/svg+xml"
+    href='data:image/svg+xml;utf8,
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="%2338bdf8"/>
+          <stop offset="1" stop-color="%23818cf8"/>
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="16" fill="%23020a13"/>
+      <circle cx="32" cy="32" r="22" fill="url(%23g)" opacity="0.95"/>
+      <text x="32" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="%23020a13">FJ</text>
+    </svg>' />
+
+  <!-- JSON-LD (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Flamur Jashari",
+    "jobTitle":"Web Developer",
+    "address":{"@type":"PostalAddress","addressCountry":"Albania","addressLocality":"Tiranë"},
+    "email":"mailto:flamurjashari@gmx.com",
+    "url":"https://flamurjashari.com/"
+  }
+  </script>
+
   <style>
     :root{
-      --bg:#020617;
+      --bg:#020a13;
       --card:#0b1220;
       --text:#e5e7eb;
       --muted:#94a3b8;
       --line:#1f2937;
       --accent:#38bdf8;
+      --accent2:#818cf8;
+      --ok:#22c55e;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 20px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(56,189,248,.18), transparent 60%),
-                  radial-gradient(900px 500px at 90% 30%, rgba(168,85,247,.14), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 600px at 20% 15%, rgba(56,189,248,.22), transparent 60%),
+        radial-gradient(900px 500px at 85% 65%, rgba(129,140,248,.18), transparent 60%),
+        var(--bg);
       color:var(--text);
     }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+
+    .wrap{max-width:980px; margin:0 auto; padding:28px 18px 60px}
     .top{
-      display:flex;gap:16px;align-items:center;justify-content:space-between;
-      padding:16px 0 8px;border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding-top:10px;
     }
-    .brand{font-weight:700;letter-spacing:.3px}
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width: 260px;
+    }
+
     .pill{
-      display:inline-block;padding:7px 12px;border:1px solid rgba(255,255,255,.12);
-      border-radius:999px;color:var(--muted);font-size:13px
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:fit-content;
+      border:1px solid rgba(148,163,184,.25);
+      background: rgba(2,10,19,.35);
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .hero{padding:46px 0 20px}
-    .hero h1{margin:0;font-size:44px;line-height:1.1}
-    .hero p{margin:14px 0 0;color:var(--muted);font-size:18px;max-width:720px}
-    .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+
+    h1{
+      margin:6px 0 8px;
+      font-size: clamp(40px, 7vw, 64px);
+      letter-spacing: -0.02em;
+      line-height:1.05;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(16px, 2.2vw, 20px);
+      line-height:1.6;
+      max-width: 60ch;
+    }
+
+    .btnrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
     .btn{
-      display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;
-      font-weight:600;font-size:14px
-    }
-    .btn.primary{background:var(--accent);color:#001018}
-    .btn.ghost{border:1px solid rgba(255,255,255,.12);color:var(--text)}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:22px}
-    .card{
-      grid-column:span 6;
-      background:rgba(11,18,32,.72);
-      border:1px solid rgba(255,255,255,.08);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:13px 16px;
       border-radius:14px;
-      padding:16px;
-      backdrop-filter: blur(6px);
+      border:1px solid rgba(148,163,184,.2);
+      background: rgba(11,18,32,.55);
+      color:var(--text);
+      text-decoration:none;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
     }
-    .card h2{margin:0 0 8px;font-size:18px}
-    .card p{margin:0;color:var(--muted);line-height:1.55}
-    .list{margin:10px 0 0;padding:0;list-style:none}
-    .list li{margin:8px 0;color:var(--muted)}
-    .list b{color:var(--text);font-weight:600}
-    .full{grid-column:span 12}
-    .footer{margin-top:26px;color:rgba(148,163,184,.8);font-size:13px}
-    .small{font-size:12px;color:rgba(148,163,184,.75)}
-    @media (max-width:720px){
-      .hero h1{font-size:34px}
-      .card{grid-column:span 12}
-      .top{flex-direction:column;align-items:flex-start}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(56,189,248,.95), rgba(129,140,248,.75));
+      color:#071018;
+      border-color: rgba(56,189,248,.35);
+      font-weight:700;
     }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: rgba(56,189,248,.35);
+      background: rgba(11,18,32,.75);
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(56,189,248,1), rgba(129,140,248,.9));
+    }
+
+    hr.sep{
+      border:0;
+      border-top:1px solid rgba(31,41,55,.7);
+      margin:22px 0 0;
+    }
+
+    .grid{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:16px;
+    }
+
+    .card{
+      grid-column: span 12;
+      background: rgba(11,18,32,.55);
+      border:1px solid rgba(148,163,184,.16);
+      border-radius: var(--radius);
+      padding:20px 20px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: rgba(56,189,248,.25);
+      background: rgba(11,18,32,.68);
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size: 26px;
+      letter-spacing:-0.01em;
+    }
+    .card p{
+      margin:0 0 10px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:16px;
+    }
+    .card ul{
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height:1.7;
+    }
+    .card li b{color: var(--text)}
+    .muted{color:var(--muted)}
+    .footer{
+      margin-top:22px;
+      color: rgba(148,163,184,.7);
+      font-size: 13px;
+      text-align:center;
+    }
+
+    /* Responsive layout */
+    @media (min-width: 720px){
+      .card.half{grid-column: span 6;}
+      .card.third{grid-column: span 4;}
+    }
+
+    /* Animations (scroll reveal) */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Tiny badge */
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.10);
+      color:#bbf7d0;
+      font-size:13px;
+      margin-top:12px;
+      width: fit-content;
+    }
+
+    /* Link style */
+    a.inline{
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(56,189,248,.35);
+    }
+    a.inline:hover{border-bottom-style: solid}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">Flamur Jashari</div>
-      <span class="pill">Web Developer • IT Support</span>
-    </div>
+  <main class="wrap">
+    <section class="top reveal">
+      <div class="brand">
+        <div class="pill">Web Developer • IT Support</div>
+        <h1>Flamur Jashari <span aria-hidden="true">👋</span></h1>
+        <p class="lead">
+          Web Developer + IT Support. Ndihmoj me krijim website, optimizim performance,
+          konfigurim domain/DNS, dhe zgjidhje teknike për pajisje & rrjete.
+        </p>
 
-    <section class="hero">
-      <h1>Flamur Jashari 👋</h1>
-      <p>
-        Web Developer & IT Support. Ndihmoj me krijim website, optimizim performance,
-        konfigurim domain/DNS, dhe zgjidhje teknike për pajisje & rrjete.
-      </p>
+        <div class="btnrow">
+          <a class="btn primary" href="#contact" aria-label="Shko te Contact">Contact</a>
+          <a class="btn" href="#services" aria-label="Shko te Services">Services</a>
+        </div>
 
-      <div class="cta">
-        <a class="btn primary" href="#contact">Contact</a>
-        <a class="btn ghost" href="#services">Services</a>
-      </div>
-      <div class="small" style="margin-top:10px;">
-        
+        <div class="badge" title="Location">📍 Albania / Tiranë</div>
       </div>
     </section>
+
+    <hr class="sep reveal" />
 
     <section id="services" class="grid">
-      <div class="card">
+      <div class="card half reveal">
         <h2>Web Development</h2>
         <p>Landing pages, portfolio, website për biznes, dhe mirëmbajtje.</p>
-        <ul class="list">
-          <li>• <b>Design modern</b> + responsive (telefon/PC)</li>
-          <li>• <b>SEO bazik</b> + shpejtësi e mirë</li>
-          <li>• <b>Deploy</b> në GitHub Pages / hosting</li>
+        <ul>
+          <li><b>Design modern</b> + responsive (telefon/PC)</li>
+          <li><b>SEO bazik</b> + shpejtësi e mirë</li>
+          <li><b>Deploy</b> në GitHub Pages / hosting</li>
         </ul>
       </div>
 
-      <div class="card">
+      <div class="card half reveal">
         <h2>IT & Troubleshooting</h2>
         <p>Zgjidhje për probleme të zakonshme IT & konfigurime.</p>
-        <ul class="list">
-          <li>• Setup rrjeti / Wi-Fi / router</li>
-          <li>• Email setup & DNS (MX, SPF, DKIM)</li>
-          <li>• Website/DNS “nuk hapet” — diagnostikim</li>
+        <ul>
+          <li>Setup rrjeti / Wi-Fi / router</li>
+          <li>Email setup & DNS (MX, SPF, DKIM)</li>
+          <li>Website/DNS “nuk hapet” — diagnostikim</li>
         </ul>
       </div>
 
-      <div class="card full">
+      <div class="card third reveal">
         <h2>Domain & DNS</h2>
-        <p>
-          
-        </p>
+        <p>Konfigurim domaini, DNS records dhe HTTPS.</p>
+        <p class="muted">Tani domaini yt është live dhe po e përdor për këtë site.</p>
+      </div>
+
+      <div class="card third reveal">
+        <h2>Performance</h2>
+        <p>Optimizim speed (Core Web Vitals), cache, imazhe & best practices.</p>
+        <p class="muted">Që faqja me u hap shpejt edhe në mobile.</p>
+      </div>
+
+      <div class="card third reveal">
+        <h2>Security</h2>
+        <p>Konfigurim bazik sigurie: HTTPS, DNS hygiene, anti-spoofing (SPF/DKIM/DMARC).</p>
+        <p class="muted">E bën faqen ma të besueshme.</p>
       </div>
     </section>
 
-    <section id="contact" class="grid" style="margin-top:14px;">
-      <div class="card full">
+    <section id="contact" class="grid" style="margin-top:16px">
+      <div class="card reveal">
         <h2>Contact</h2>
-        <p>
-          Email (placeholder): <b>flamurjashari@gmx.com</b><br/>
-      
+        <p>Kontakto direkt me email ose WhatsApp:</p>
+
+        <div class="btnrow">
+          <a class="btn primary" href="mailto:flamurjashari@gmx.com?subject=Website%20Inquiry%20-%20Flamur%20Jashari">
+            📧 Email
+          </a>
+
+          <a class="btn" target="_blank" rel="noopener"
+             href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
+            💬 WhatsApp
+          </a>
+        </div>
+
+        <p style="margin-top:14px" class="muted">
+          Email: <a class="inline" href="mailto:flamurjashari@gmx.com">flamurjashari@gmx.com</a><br/>
+          WhatsApp: <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a>
         </p>
       </div>
     </section>
 
-    <div class="footer">
-      © <span id="y"></span> Flamur Jashari 
+    <div class="footer reveal">
+      © <span id="y"></span> Flamur Jashari — Built with GitHub Pages
     </div>
-  </div>
+  </main>
 
   <script>
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("show");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
