@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flamur Jashari — Web Developer</title>
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#0b1220;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --line:#1f2937;
+      --accent:#38bdf8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(56,189,248,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 30%, rgba(168,85,247,.14), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    .top{
+      display:flex;gap:16px;align-items:center;justify-content:space-between;
+      padding:16px 0 8px;border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .brand{font-weight:700;letter-spacing:.3px}
+    .pill{
+      display:inline-block;padding:7px 12px;border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;color:var(--muted);font-size:13px
+    }
+    .hero{padding:46px 0 20px}
+    .hero h1{margin:0;font-size:44px;line-height:1.1}
+    .hero p{margin:14px 0 0;color:var(--muted);font-size:18px;max-width:720px}
+    .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;
+      font-weight:600;font-size:14px
+    }
+    .btn.primary{background:var(--accent);color:#001018}
+    .btn.ghost{border:1px solid rgba(255,255,255,.12);color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:22px}
+    .card{
+      grid-column:span 6;
+      background:rgba(11,18,32,.72);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:16px;
+      backdrop-filter: blur(6px);
+    }
+    .card h2{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);line-height:1.55}
+    .list{margin:10px 0 0;padding:0;list-style:none}
+    .list li{margin:8px 0;color:var(--muted)}
+    .list b{color:var(--text);font-weight:600}
+    .full{grid-column:span 12}
+    .footer{margin-top:26px;color:rgba(148,163,184,.8);font-size:13px}
+    .small{font-size:12px;color:rgba(148,163,184,.75)}
+    @media (max-width:720px){
+      .hero h1{font-size:34px}
+      .card{grid-column:span 12}
+      .top{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">Flamur Jashari</div>
+      <span class="pill">Web Developer • IT Support</span>
+    </div>
+
+    <section class="hero">
+      <h1>Flamur Jashari 👋</h1>
+      <p>
+        Web Developer & IT Support. Ndihmoj me krijim website, optimizim performance,
+        konfigurim domain/DNS, dhe zgjidhje teknike për pajisje & rrjete.
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="#contact">Contact</a>
+        <a class="btn ghost" href="#services">Services</a>
+      </div>
+      <div class="small" style="margin-top:10px;">
+        
+      </div>
+    </section>
+
+    <section id="services" class="grid">
+      <div class="card">
+        <h2>Web Development</h2>
+        <p>Landing pages, portfolio, website për biznes, dhe mirëmbajtje.</p>
+        <ul class="list">
+          <li>• <b>Design modern</b> + responsive (telefon/PC)</li>
+          <li>• <b>SEO bazik</b> + shpejtësi e mirë</li>
+          <li>• <b>Deploy</b> në GitHub Pages / hosting</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>IT & Troubleshooting</h2>
+        <p>Zgjidhje për probleme të zakonshme IT & konfigurime.</p>
+        <ul class="list">
+          <li>• Setup rrjeti / Wi-Fi / router</li>
+          <li>• Email setup & DNS (MX, SPF, DKIM)</li>
+          <li>• Website/DNS “nuk hapet” — diagnostikim</li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h2>Domain & DNS</h2>
+        <p>
+          
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="grid" style="margin-top:14px;">
+      <div class="card full">
+        <h2>Contact</h2>
+        <p>
+          Email (placeholder): <b>flamurjashari@gmx.com</b><br/>
+      
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      © <span id="y"></span> Flamur Jashari 
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
