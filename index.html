@@ -9,18 +9,15 @@
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://flamurjashari.com/" />
 
-  <!-- Open Graph / Social -->
   <meta property="og:title" content="Flamur Jashari — Web Developer & IT Support" />
   <meta property="og:description" content="Krijim website, optimizim performance, konfigurim domain/DNS dhe IT support për rrjete & pajisje." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://flamurjashari.com/" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Flamur Jashari — Web Developer & IT Support" />
   <meta name="twitter:description" content="Krijim website, optimizim performance, konfigurim domain/DNS dhe IT support." />
 
-  <!-- Favicon (SVG data-uri, initialet FJ) -->
   <link rel="icon" type="image/svg+xml"
     href='data:image/svg+xml;utf8,
     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
@@ -35,7 +32,6 @@
       <text x="32" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="%23020a13">FJ</text>
     </svg>' />
 
-  <!-- JSON-LD (SEO) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -69,11 +65,10 @@
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth; overflow-x: hidden;}
     body{
       margin:0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      /* Premium IT background: glow */
       background:
         radial-gradient(1200px 600px at 20% 15%, rgba(56,189,248,.22), transparent 60%),
         radial-gradient(900px 500px at 85% 65%, rgba(129,140,248,.18), transparent 60%),
@@ -82,10 +77,9 @@
         var(--bg);
       color:var(--text);
       position: relative;
-      overflow-x:hidden;
+      overflow-x:hidden; /* Ky rresht ndalon daljen anash */
     }
 
-    /* Tech grid overlay */
     body::before{
       content:"";
       position:fixed;
@@ -100,38 +94,26 @@
       opacity:.55;
     }
 
-    /* Subtle circuit dots */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:-20%;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(56,189,248,.10) 0 1px, transparent 2px),
-        radial-gradient(circle at 40% 60%, rgba(129,140,248,.10) 0 1px, transparent 2px),
-        radial-gradient(circle at 75% 35%, rgba(56,189,248,.10) 0 1px, transparent 2px),
-        radial-gradient(circle at 85% 80%, rgba(129,140,248,.10) 0 1px, transparent 2px);
-      background-size: 220px 220px;
-      opacity:.55;
-      filter: blur(.2px);
-      transform: translateZ(0);
-    }
-
     .wrap{max-width:980px; margin:0 auto; padding:28px 18px 60px; position:relative; z-index:1;}
 
     .top{
       display:flex;
+      flex-direction: column; /* Rregullimi për mobile */
       align-items:flex-start;
       justify-content:space-between;
-      gap:14px;
+      gap:20px;
       padding-top:10px;
+    }
+
+    @media (min-width: 720px) {
+      .top { flex-direction: row; }
     }
 
     .brand{
       display:flex;
       flex-direction:column;
       gap:10px;
-      min-width: 260px;
+      width: 100%; /* I jep fleksibilitet */
     }
 
     .pill{
@@ -146,20 +128,23 @@
       color:var(--muted);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      font-size: 14px;
     }
 
     h1{
       margin:6px 0 8px;
-      font-size: clamp(40px, 7vw, 64px);
+      font-size: clamp(32px, 8vw, 64px);
       letter-spacing: -0.02em;
       line-height:1.05;
+      word-wrap: break-word;
     }
+
     .lead{
       margin:0;
       color:var(--muted);
       font-size: clamp(16px, 2.2vw, 20px);
       line-height:1.6;
-      max-width: 60ch;
+      max-width: 100%;
     }
 
     .btnrow{
@@ -180,48 +165,26 @@
       background: rgba(11,18,32,.55);
       color:var(--text);
       text-decoration:none;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transform: translateY(0);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      transition: all .18s ease;
       user-select:none;
       position:relative;
       overflow:hidden;
+      font-size: 15px;
     }
+
     .btn.primary{
       background: linear-gradient(135deg, rgba(56,189,248,.95), rgba(129,140,248,.75));
       color:#071018;
       border-color: rgba(56,189,248,.35);
       font-weight:800;
     }
-    /* rotating gradient shine on primary button */
-    .btn.primary::before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: conic-gradient(from 0deg,
-        rgba(255,255,255,.0),
-        rgba(255,255,255,.45),
-        rgba(255,255,255,.0)
-      );
-      animation: spin 3.4s linear infinite;
-      opacity:.55;
-    }
-    .btn.primary > *{position:relative; z-index:1}
 
     .btn:hover{
       transform: translateY(-2px);
       box-shadow: var(--shadow);
       border-color: rgba(56,189,248,.35);
-      background: rgba(11,18,32,.75);
-    }
-    .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(56,189,248,1), rgba(129,140,248,.9));
     }
 
-    .btn svg{width:18px; height:18px; display:block}
-    .btn .ico{display:inline-flex; align-items:center; justify-content:center}
-
-    /* Rotating gradient badge (top right) */
     .logo-it{
       position:relative;
       display:inline-flex;
@@ -237,21 +200,14 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       overflow:hidden;
-      user-select:none;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
       flex-shrink:0;
     }
+
     .logo-it::before{
       content:"";
       position:absolute;
       inset:-2px;
-      background: conic-gradient(from 0deg,
-        rgba(56,189,248,.95),
-        rgba(129,140,248,.95),
-        rgba(34,197,94,.85),
-        rgba(56,189,248,.95)
-      );
+      background: conic-gradient(from 0deg, rgba(56,189,248,.95), rgba(129,140,248,.95), rgba(34,197,94,.85), rgba(56,189,248,.95));
       animation: spin 4.2s linear infinite;
       opacity:.65;
     }
@@ -261,20 +217,8 @@
       inset:2px;
       background: rgba(11,18,32,.72);
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.06);
     }
     .logo-it > *{position:relative; z-index:1}
-    .logo-it:hover{
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: rgba(56,189,248,.35);
-    }
-
-    hr.sep{
-      border:0;
-      border-top:1px solid rgba(31,41,55,.7);
-      margin:22px 0 0;
-    }
 
     .grid{
       margin-top:26px;
@@ -288,148 +232,32 @@
       background: rgba(11,18,32,.55);
       border:1px solid rgba(148,163,184,.16);
       border-radius: var(--radius);
-      padding:20px 20px;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      padding:24px;
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       position:relative;
       overflow:hidden;
     }
 
-    /* subtle rotating border glow on hover (premium) */
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-60%;
-      background: conic-gradient(from 0deg,
-        rgba(56,189,248,.0),
-        rgba(56,189,248,.35),
-        rgba(129,140,248,.0)
-      );
-      opacity:0;
-      transition: opacity .18s ease;
-      animation: spin 6.2s linear infinite;
-    }
     .card::after{
       content:"";
       position:absolute;
       inset:1px;
       background: rgba(11,18,32,.55);
       border-radius: calc(var(--radius) - 1px);
-      border:1px solid rgba(255,255,255,.02);
+      z-index: 0;
     }
     .card > *{position:relative; z-index:1}
-
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: rgba(56,189,248,.25);
-      background: rgba(11,18,32,.68);
-    }
-    .card:hover::before{opacity:1}
-
-    .card h2{
-      margin:0 0 10px;
-      font-size: 26px;
-      letter-spacing:-0.01em;
-    }
-    .card p{
-      margin:0 0 10px;
-      color:var(--muted);
-      line-height:1.65;
-      font-size:16px;
-    }
-    .card ul{
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height:1.7;
-    }
-    .card li b{color: var(--text)}
-    .muted{color:var(--muted)}
-
-    .footer{
-      margin-top:22px;
-      color: rgba(148,163,184,.7);
-      font-size: 13px;
-      text-align:center;
-    }
 
     @media (min-width: 720px){
       .card.half{grid-column: span 6;}
       .card.third{grid-column: span 4;}
     }
 
-    /* Animations (scroll reveal) */
-    .reveal{
-      opacity:0;
-      transform: translateY(14px);
-      transition: opacity .55s ease, transform .55s ease;
-      will-change: opacity, transform;
-    }
-    .reveal.show{
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    /* Tiny badge */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(34,197,94,.25);
-      background: rgba(34,197,94,.10);
-      color:#bbf7d0;
-      font-size:13px;
-      margin-top:12px;
-      width: fit-content;
-    }
-
-    /* Link style */
-    a.inline{
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(56,189,248,.35);
-    }
-    a.inline:hover{border-bottom-style: solid}
-
-    /* Social row */
-    .socials{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-    }
-    .social{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px solid rgba(148,163,184,.2);
-      background: rgba(11,18,32,.55);
-      color:var(--text);
-      text-decoration:none;
-      font-size:14px;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .social:hover{
-      transform: translateY(-2px);
-      border-color: rgba(56,189,248,.35);
-      box-shadow: var(--shadow);
-      background: rgba(11,18,32,.75);
-    }
-    .social svg{width:18px; height:18px; opacity:.95}
-
-    /* Floating WhatsApp */
     .wa-float{
       position:fixed;
       right:16px;
       bottom:16px;
-      z-index:50;
+      z-index:100;
       display:inline-flex;
       align-items:center;
       gap:10px;
@@ -438,33 +266,40 @@
       text-decoration:none;
       color:#071018;
       font-weight:900;
-      background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
-      border:1px solid rgba(34,197,94,.5);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-      transform: translateY(0);
-      transition: transform .18s ease, filter .18s ease;
-    }
-    .wa-float:hover{transform: translateY(-2px); filter:saturate(1.1)}
-    .wa-float svg{width:20px; height:20px}
-    @media (max-width: 380px){
-      .wa-float span{display:none;}
-      .wa-float{padding:12px; border-radius:16px;}
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 10px 25px rgba(0,0,0,.3);
+      transition: transform .2s;
     }
 
-    @keyframes spin{
-      to{ transform: rotate(360deg); }
+    @media (max-width: 400px){
+      .wa-float span { display: none; }
+      .wa-float { padding: 12px; }
     }
+
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(15px);
+      transition: all .6s ease-out;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    hr.sep{ border:0; border-top:1px solid rgba(255,255,255,.1); margin: 30px 0; }
+    .badge{ display:inline-flex; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); font-size:13px; margin-top:10px;}
+    .socials{ display:flex; flex-wrap:wrap; gap:10px; margin-top:15px; }
+    .social{ padding:10px 15px; border-radius:12px; background:rgba(255,255,255,.05); text-decoration:none; color:inherit; border:1px solid rgba(255,255,255,.1); font-size:14px; transition: .2s;}
+    .social:hover{ background:rgba(255,255,255,.1); transform:translateY(-2px); }
   </style>
 </head>
 
 <body>
-  <!-- Floating WhatsApp -->
   <a class="wa-float" target="_blank" rel="noopener"
      href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
-    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
-      <path fill="#071018" d="M12 2a10 10 0 0 0-8.53 15.2L2 22l4.92-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-2.9.83.82-2.82-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/>
-      <path fill="#071018" d="M16.8 14.1c-.25-.13-1.45-.72-1.68-.8-.22-.08-.38-.12-.54.12-.16.25-.62.8-.76.96-.14.16-.28.18-.53.06-.25-.13-1.05-.38-2-.2-.74-.16-1.37-1.32-1.53-1.57-.16-.25-.02-.38.12-.5.12-.12.25-.28.38-.42.12-.14.16-.25.25-.42.08-.16.04-.3-.02-.42-.06-.13-.54-1.3-.74-1.78-.2-.48-.4-.42-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.25-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.1 3.64.57.25 1.02.4 1.36.5.57.18 1.08.16 1.48.1.45-.06 1.45-.6 1.66-1.18.2-.57.2-1.05.14-1.18-.06-.12-.22-.2-.47-.32Z"/>
-    </svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.53 15.2L2 22l4.92-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-2.9.83.82-2.82-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
     <span>WhatsApp</span>
   </a>
 
@@ -472,42 +307,21 @@
     <section class="top reveal">
       <div class="brand">
         <div class="pill">Web Developer • IT Support</div>
-
-        <h1>Flamur Jashari <span aria-hidden="true">👋</span></h1>
-
+        <h1>Flamur Jashari 👋</h1>
         <p class="lead">
           Web Developer + IT Support. Ndihmoj me krijim website, optimizim performance,
           konfigurim domain/DNS, dhe zgjidhje teknike për pajisje & rrjete.
         </p>
 
         <div class="btnrow">
-          <a class="btn primary" href="#contact" aria-label="Shko te Contact">
-            <span class="ico">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 6.5h16v11H4v-11Z" stroke="currentColor" stroke-width="2"/>
-                <path d="m4.5 7 7.5 6 7.5-6" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            Contact
-          </a>
-
-          <a class="btn" href="#services" aria-label="Shko te Services">
-            <span class="ico">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 7h10v10H7V7Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M4 12h3M17 12h3M12 4v3M12 17v3" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            Services
-          </a>
+          <a class="btn primary" href="#contact">Contact</a>
+          <a class="btn" href="#services">Services</a>
         </div>
-
-        <div class="badge" title="Location">📍 Albania / Tiranë</div>
+        <div class="badge">📍 Albania / Tiranë</div>
       </div>
 
-      <!-- TOP RIGHT IT BADGE -->
-      <div class="logo-it" aria-label="IT badge">
-        <span aria-hidden="true">💻</span>
+      <div class="logo-it">
+        <span>💻</span>
         <span>IT • DEV</span>
       </div>
     </section>
@@ -518,104 +332,62 @@
       <div class="card half reveal">
         <h2>Web Development</h2>
         <p>Landing pages, portfolio, website për biznes, dhe mirëmbajtje.</p>
-        <ul>
-          <li><b>Design modern</b> + responsive (telefon/PC)</li>
-          <li><b>SEO bazik</b> + shpejtësi e mirë</li>
-          <li><b>Deploy</b> në GitHub Pages / hosting</li>
+        <ul style="padding-left:20px; color:var(--muted)">
+          <li><b>Design modern</b> + responsive</li>
+          <li><b>SEO bazik</b> + shpejtësi</li>
+          <li><b>Deploy</b> në GitHub / Hosting</li>
         </ul>
       </div>
 
       <div class="card half reveal">
         <h2>IT & Troubleshooting</h2>
         <p>Zgjidhje për probleme të zakonshme IT & konfigurime.</p>
-        <ul>
-          <li>Setup rrjeti / Wi-Fi / router</li>
-          <li>Email setup & DNS (MX, SPF, DKIM)</li>
-          <li>Website/DNS “nuk hapet” — diagnostikim</li>
+        <ul style="padding-left:20px; color:var(--muted)">
+          <li>Setup rrjeti / Wi-Fi / Router</li>
+          <li>Email setup & DNS (MX, SPF)</li>
+          <li>Diagnostikim teknik</li>
         </ul>
       </div>
 
       <div class="card third reveal">
-        <h2>Domain & DNS</h2>
-        <p>Konfigurim domaini, DNS records dhe HTTPS.</p>
-        <p class="muted">Lidhje e domainit me hosting + konfigurim korrekt DNS (A / CNAME). Aktivizim SSL/HTTPS.</p>
+        <h3>Domain & DNS</h3>
+        <p style="font-size:14px">Konfigurim domaini, DNS records dhe HTTPS SSL.</p>
       </div>
 
       <div class="card third reveal">
-        <h2>Performance</h2>
-        <p>Optimizim speed (Core Web Vitals), cache, imazhe & best practices.</p>
-        <p class="muted">Që faqja me u hap shpejt edhe në mobile.</p>
+        <h3>Performance</h3>
+        <p style="font-size:14px">Optimizim speed, cache dhe Core Web Vitals.</p>
       </div>
 
       <div class="card third reveal">
-        <h2>Security</h2>
-        <p>Konfigurim bazik sigurie: HTTPS, DNS hygiene, anti-spoofing (SPF, DKIM, DMARC).</p>
-        <p class="muted">Mbrojtje bazike kundër spoofing + konfigurim i pastër DNS.</p>
+        <h3>Security</h3>
+        <p style="font-size:14px">Mbrojtje kundër spoofing dhe konfigurim DNS hygiene.</p>
       </div>
     </section>
 
-    <section id="contact" class="grid" style="margin-top:16px">
+    <section id="contact" class="grid" style="margin-top:20px">
       <div class="card reveal">
         <h2>Contact</h2>
-        <p>Kontakto direkt me email, WhatsApp, ose rrjete sociale:</p>
-
+        <p>Kontakto direkt për bashkëpunim:</p>
         <div class="btnrow">
-          <a class="btn primary"
-             href="mailto:flamurjashari@gmx.com?subject=Website%20Inquiry%20-%20Flamur%20Jashari">
-            📧 Email
-          </a>
-
-          <a class="btn"
-             target="_blank"
-             rel="noopener"
-             href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20kam%20nevoje%20per%20ndihme%20me%20website%2FIT.">
-            💬 WhatsApp
-          </a>
+          <a class="btn primary" href="mailto:flamurjashari@gmx.com">📧 Email</a>
+          <a class="btn" target="_blank" href="https://wa.me/38346124923">💬 WhatsApp</a>
         </div>
-
-        <div class="socials" aria-label="Social links">
-          <a class="social" target="_blank" rel="noopener" href="https://instagram.com/flamurjashari7" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7.5 2.8h9A4.7 4.7 0 0 1 21.2 7.5v9a4.7 4.7 0 0 1-4.7 4.7h-9A4.7 4.7 0 0 1 2.8 16.5v-9A4.7 4.7 0 0 1 7.5 2.8Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 16.2A4.2 4.2 0 1 0 12 7.8a4.2 4.2 0 0 0 0 8.4Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M17.3 6.9h.01" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-            </svg>
-            Instagram
-          </a>
-
-          <a class="social" target="_blank" rel="noopener" href="https://facebook.com/flamurjashari4" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M14 8.5V7.3c0-.8.4-1.3 1.4-1.3H17V3.2h-2.2C12.7 3.2 12 4.7 12 6.9v1.6H10v2.6h2V21h3v-9.9h2.1l.3-2.6H15Z" fill="currentColor"/>
-            </svg>
-            Facebook
-          </a>
-
-          <a class="social" target="_blank" rel="noopener" href="https://x.com/flamurjashari4" aria-label="X">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M18.6 3H21l-5.2 6 6.1 12h-4.3l-3.9-7.7L7.6 21H5.2l5.7-6.7L5 3h4.4l3.5 6.7L18.6 3Zm-1.5 16h1.2L8 4.9H6.7l10.4 14.1Z" fill="currentColor"/>
-            </svg>
-            X
-          </a>
+        <div class="socials">
+          <a class="social" target="_blank" href="https://instagram.com/flamurjashari7">Instagram</a>
+          <a class="social" target="_blank" href="https://facebook.com/flamurjashari4">Facebook</a>
+          <a class="social" target="_blank" href="https://x.com/flamurjashari4">X</a>
         </div>
-
-        <p style="margin-top:14px" class="muted">
-          Email: <a class="inline" href="mailto:info@flamurjashari.com">info@flamurjashari.com</a><br/>
-          WhatsApp: <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
-          Lokacion: Albania / Tiranë
-        </p>
       </div>
     </section>
 
-    <div class="footer reveal">
+    <div class="footer reveal" style="text-align:center; padding:40px 0; font-size:13px; opacity:0.6">
       © <span id="y"></span> Flamur Jashari
     </div>
   </main>
 
   <script>
-    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
-
-    // Scroll reveal
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -624,8 +396,7 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
-
+    }, { threshold: 0.1 });
     els.forEach(el => io.observe(el));
   </script>
 </body>
