@@ -73,7 +73,7 @@
     body{
       margin:0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      /* Premium IT background: grid + glow */
+      /* Premium IT background: glow */
       background:
         radial-gradient(1200px 600px at 20% 15%, rgba(56,189,248,.22), transparent 60%),
         radial-gradient(900px 500px at 85% 65%, rgba(129,140,248,.18), transparent 60%),
@@ -95,6 +95,7 @@
         linear-gradient(rgba(148,163,184,.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(148,163,184,.06) 1px, transparent 1px);
       background-size: 34px 34px;
+      -webkit-mask-image: radial-gradient(700px 420px at 30% 20%, rgba(0,0,0,.9), transparent 70%);
       mask-image: radial-gradient(700px 420px at 30% 20%, rgba(0,0,0,.9), transparent 70%);
       opacity:.55;
     }
@@ -117,6 +118,7 @@
     }
 
     .wrap{max-width:980px; margin:0 auto; padding:28px 18px 60px; position:relative; z-index:1;}
+
     .top{
       display:flex;
       align-items:flex-start;
@@ -182,6 +184,8 @@
       transform: translateY(0);
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
       user-select:none;
+      position:relative;
+      overflow:hidden;
     }
     .btn.primary{
       background: linear-gradient(135deg, rgba(56,189,248,.95), rgba(129,140,248,.75));
@@ -189,6 +193,21 @@
       border-color: rgba(56,189,248,.35);
       font-weight:800;
     }
+    /* rotating gradient shine on primary button */
+    .btn.primary::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: conic-gradient(from 0deg,
+        rgba(255,255,255,.0),
+        rgba(255,255,255,.45),
+        rgba(255,255,255,.0)
+      );
+      animation: spin 3.4s linear infinite;
+      opacity:.55;
+    }
+    .btn.primary > *{position:relative; z-index:1}
+
     .btn:hover{
       transform: translateY(-2px);
       box-shadow: var(--shadow);
@@ -201,6 +220,55 @@
 
     .btn svg{width:18px; height:18px; display:block}
     .btn .ico{display:inline-flex; align-items:center; justify-content:center}
+
+    /* Rotating gradient badge (top right) */
+    .logo-it{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:800;
+      color:var(--text);
+      background: rgba(11,18,32,.55);
+      border:1px solid rgba(148,163,184,.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow:hidden;
+      user-select:none;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      flex-shrink:0;
+    }
+    .logo-it::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: conic-gradient(from 0deg,
+        rgba(56,189,248,.95),
+        rgba(129,140,248,.95),
+        rgba(34,197,94,.85),
+        rgba(56,189,248,.95)
+      );
+      animation: spin 4.2s linear infinite;
+      opacity:.65;
+    }
+    .logo-it::after{
+      content:"";
+      position:absolute;
+      inset:2px;
+      background: rgba(11,18,32,.72);
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .logo-it > *{position:relative; z-index:1}
+    .logo-it:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: rgba(56,189,248,.35);
+    }
 
     hr.sep{
       border:0;
@@ -225,7 +293,33 @@
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
     }
+
+    /* subtle rotating border glow on hover (premium) */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background: conic-gradient(from 0deg,
+        rgba(56,189,248,.0),
+        rgba(56,189,248,.35),
+        rgba(129,140,248,.0)
+      );
+      opacity:0;
+      transition: opacity .18s ease;
+      animation: spin 6.2s linear infinite;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:1px;
+      background: rgba(11,18,32,.55);
+      border-radius: calc(var(--radius) - 1px);
+      border:1px solid rgba(255,255,255,.02);
+    }
+    .card > *{position:relative; z-index:1}
 
     .card:hover{
       transform: translateY(-2px);
@@ -233,6 +327,7 @@
       border-color: rgba(56,189,248,.25);
       background: rgba(11,18,32,.68);
     }
+    .card:hover::before{opacity:1}
 
     .card h2{
       margin:0 0 10px;
@@ -253,6 +348,7 @@
     }
     .card li b{color: var(--text)}
     .muted{color:var(--muted)}
+
     .footer{
       margin-top:22px;
       color: rgba(148,163,184,.7);
@@ -260,7 +356,6 @@
       text-align:center;
     }
 
-    /* Responsive layout */
     @media (min-width: 720px){
       .card.half{grid-column: span 6;}
       .card.third{grid-column: span 4;}
@@ -301,7 +396,7 @@
     }
     a.inline:hover{border-bottom-style: solid}
 
-    /* Social row (Instagram / Facebook / X) */
+    /* Social row */
     .socials{
       display:flex;
       flex-wrap:wrap;
@@ -355,6 +450,10 @@
       .wa-float span{display:none;}
       .wa-float{padding:12px; border-radius:16px;}
     }
+
+    @keyframes spin{
+      to{ transform: rotate(360deg); }
+    }
   </style>
 </head>
 
@@ -373,7 +472,9 @@
     <section class="top reveal">
       <div class="brand">
         <div class="pill">Web Developer • IT Support</div>
+
         <h1>Flamur Jashari <span aria-hidden="true">👋</span></h1>
+
         <p class="lead">
           Web Developer + IT Support. Ndihmoj me krijim website, optimizim performance,
           konfigurim domain/DNS, dhe zgjidhje teknike për pajisje & rrjete.
@@ -402,6 +503,12 @@
         </div>
 
         <div class="badge" title="Location">📍 Albania / Tiranë</div>
+      </div>
+
+      <!-- TOP RIGHT IT BADGE -->
+      <div class="logo-it" aria-label="IT badge">
+        <span aria-hidden="true">💻</span>
+        <span>IT • DEV</span>
       </div>
     </section>
 
@@ -466,10 +573,8 @@
           </a>
         </div>
 
-        <!-- Social icons -->
         <div class="socials" aria-label="Social links">
           <a class="social" target="_blank" rel="noopener" href="https://instagram.com/flamurjashari7" aria-label="Instagram">
-            <!-- Instagram icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M7.5 2.8h9A4.7 4.7 0 0 1 21.2 7.5v9a4.7 4.7 0 0 1-4.7 4.7h-9A4.7 4.7 0 0 1 2.8 16.5v-9A4.7 4.7 0 0 1 7.5 2.8Z" stroke="currentColor" stroke-width="2"/>
               <path d="M12 16.2A4.2 4.2 0 1 0 12 7.8a4.2 4.2 0 0 0 0 8.4Z" stroke="currentColor" stroke-width="2"/>
@@ -479,7 +584,6 @@
           </a>
 
           <a class="social" target="_blank" rel="noopener" href="https://facebook.com/flamurjashari4" aria-label="Facebook">
-            <!-- Facebook icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M14 8.5V7.3c0-.8.4-1.3 1.4-1.3H17V3.2h-2.2C12.7 3.2 12 4.7 12 6.9v1.6H10v2.6h2V21h3v-9.9h2.1l.3-2.6H15Z" fill="currentColor"/>
             </svg>
@@ -487,7 +591,6 @@
           </a>
 
           <a class="social" target="_blank" rel="noopener" href="https://x.com/flamurjashari4" aria-label="X">
-            <!-- X icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M18.6 3H21l-5.2 6 6.1 12h-4.3l-3.9-7.7L7.6 21H5.2l5.7-6.7L5 3h4.4l3.5 6.7L18.6 3Zm-1.5 16h1.2L8 4.9H6.7l10.4 14.1Z" fill="currentColor"/>
             </svg>
@@ -496,10 +599,8 @@
         </div>
 
         <p style="margin-top:14px" class="muted">
-          Email:
-          <a class="inline" href="mailto:flamurjashari@gmx.com">flamurjashari@gmx.com</a><br/>
-          WhatsApp:
-          <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
+          Email: <a class="inline" href="mailto:info@flamurjashari.com">info@flamurjashari.com</a><br/>
+          WhatsApp: <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
           Lokacion: Albania / Tiranë
         </p>
       </div>
