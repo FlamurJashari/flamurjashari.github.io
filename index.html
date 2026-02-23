@@ -897,14 +897,16 @@
     // Viti Dinamik
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Skripti i Gjuhës
+        // Skripti i Gjuhës
     function toggleLang() {
-      const sq = document.querySelectorAll('[lang="sq"]');
-      const en = document.querySelectorAll('[lang="en"]');
+      const sq = document.querySelectorAll('body [lang="sq"]');
+      const en = document.querySelectorAll('body [lang="en"]');
       const isSq = sq[0].style.display !== 'none';
 
       sq.forEach(el => el.style.display = isSq ? 'none' : 'inline-block');
       en.forEach(el => el.style.display = isSq ? 'inline-block' : 'none');
+    }
+
     }
 
     // Skripti i Modals
