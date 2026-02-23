@@ -81,6 +81,7 @@
       flex-direction: column;
       align-items:flex-start;
       justify-content:space-between;
+      width: 100%; /* Shton gjerësi të plotë që logoja IT të shkojë djathtas */
       gap:24px;
       padding-top:20px;
     }
@@ -240,7 +241,6 @@
       }
       .pill { max-width: calc(100% - 100px); }
       
-      /* Butonat e parë - Krah për krah */
       .brand .btnrow {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -248,8 +248,8 @@
       }
       .brand .btn { width: 100%; padding: 14px 8px; font-size: 15px;}
       
-      /* Qendrimi i Badge (Albania/Tirane) */
-      .badge { margin: 16px auto 0 auto; }
+      /* Qendron Albania/Tirane në mes */
+      .badge { align-self: center; margin-top: 20px; }
     }
 
     hr.sep{
@@ -346,28 +346,36 @@
     a.inline{ color: var(--accent); text-decoration: none; transition: color 0.2s; }
     a.inline:hover{color: var(--accent2);}
 
-    /* Rregullimi i Kontaktit - Grid profesional */
+    /* --- RREGULLIMI PËR SEKSIONIN KONTAKT ("MENU APLIKACIONESH") --- */
+    
     #contact .btnrow {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      display: flex;
+      flex-direction: column; /* I radhit njëri nën tjetrin */
+      gap: 14px;
       width: 100%;
     }
     
+    #contact .btn {
+      width: 100%; /* Marrin gjerësi të plotë */
+      justify-content: center;
+      padding: 16px;
+    }
+
     .socials{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
       width: 100%;
     }
     
     .social{
+      flex: 1 1 calc(33.333% - 12px); /* 3 në një rresht për desktop */
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:14px 16px;
+      padding:16px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.05);
       background: rgba(255,255,255,.02);
@@ -384,10 +392,11 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* Stakimi i butonave të kontaktit në një kolonë për mobile */
+    /* Në mobile zbresin të gjithë butonat si Menu */
     @media (max-width: 600px) {
-      #contact .btnrow { grid-template-columns: 1fr; }
-      .socials { grid-template-columns: 1fr; }
+      .social { 
+        flex: 1 1 100%; /* Një nga një poshtë */
+      }
     }
 
     .wa-float{
@@ -458,9 +467,9 @@
 
         <div class="btnrow">
           <a class="btn primary" href="#contact" aria-label="Shko te Contact">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 6.5h16v11H4v-11Z" stroke="currentColor" stroke-width="2"/>
-              <path d="m4.5 7 7.5 6 7.5-6" stroke="currentColor" stroke-width="2"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
             Kontakto
           </a>
@@ -474,7 +483,7 @@
           </a>
         </div>
 
-        <div class="badge" title="">📍 Albania / Tiranë</div>
+        <div class="badge" title="Location">📍 Albania / Tiranë</div>
       </div>
 
       <div class="logo-it" aria-label="IT badge">
@@ -547,33 +556,58 @@
 
         <div class="btnrow">
           <a class="btn primary"
-             href="mailto:info@flamurjashari.com?subject=Konsultim%20-%20Flamur%20Jashari">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            Dërgo Email
+             target="_blank"
+             rel="noopener"
+             href="https://paypal.me/flamurjashari99"
+             style="background: linear-gradient(135deg, #0070ba, #1546a0); color: #ffffff;">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.641.641 0 0 1 .633-.537h6.436c1.785 0 3.19.16 4.167.472 1.488.476 2.404 1.41 2.684 2.734.228 1.077.108 2.106-.35 3.013-.497.986-1.298 1.83-2.345 2.472-1.037.637-2.348 1.054-3.838 1.218-.328.036-.66.055-.995.055H8.64a.641.641 0 0 0-.633.537l-1.464 8.018a.64.64 0 0 1-.634.535l1.167-6.398h2.06c1.55 0 2.798-.106 3.655-.31 1.246-.296 2.11-.904 2.53-1.78.36-.75.445-1.594.246-2.472-.25-1.1-.96-1.815-2.078-2.09-.768-.19-1.834-.23-3.123-.23H5.974l-2.04 11.173h2.648l.494-2.705z"/>
+            </svg>
+            Paguaj me PayPal
           </a>
 
           <a class="btn"
              target="_blank"
              rel="noopener"
-             href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20jam%20i%20interesuar%20për%20shërbimet%20tuaja.">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.53 15.2L2 22l4.92-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-2.9.83.82-2.82-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/><path d="M16.8 14.1c-.25-.13-1.45-.72-1.68-.8-.22-.08-.38-.12-.54.12-.16.25-.62.8-.76.96-.14.16-.28.18-.53.06-.25-.13-1.05-.38-2-.2-.74-.16-1.37-1.32-1.53-1.57-.16-.25-.02-.38.12-.5.12-.12.25-.28.38-.42.12-.14.16-.25.25-.42.08-.16.04-.3-.02-.42-.06-.13-.54-1.3-.74-1.78-.2-.48-.4-.42-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.25-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.1 3.64.57.25 1.02.4 1.36.5.57.18 1.08.16 1.48.1.45-.06 1.45-.6 1.66-1.18.2-.57.2-1.05.14-1.18-.06-.12-.22-.2-.47-.32Z"/></svg>
+             href="https://wa.me/38346124923?text=Pershendetje%20Flamur%2C%20jam%20i%20interesuar%20për%20shërbimet%20tuaja."
+             style="border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.08); color: #e5e7eb;">
+            <svg viewBox="0 0 24 24" fill="#22c55e">
+              <path d="M12 2a10 10 0 0 0-8.53 15.2L2 22l4.92-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-2.9.83.82-2.82-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/><path d="M16.8 14.1c-.25-.13-1.45-.72-1.68-.8-.22-.08-.38-.12-.54.12-.16.25-.62.8-.76.96-.14.16-.28.18-.53.06-.25-.13-1.05-.38-2-.2-.74-.16-1.37-1.32-1.53-1.57-.16-.25-.02-.38.12-.5.12-.12.25-.28.38-.42.12-.14.16-.25.25-.42.08-.16.04-.3-.02-.42-.06-.13-.54-1.3-.74-1.78-.2-.48-.4-.42-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.25-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.1 3.64.57.25 1.02.4 1.36.5.57.18 1.08.16 1.48.1.45-.06 1.45-.6 1.66-1.18.2-.57.2-1.05.14-1.18-.06-.12-.22-.2-.47-.32Z"/>
+            </svg>
             Dërgo Mesazh
+          </a>
+
+          <a class="btn"
+             href="mailto:info@flamurjashari.com?subject=Konsultim%20-%20Flamur%20Jashari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Dërgo Email
           </a>
         </div>
 
         <div class="socials" aria-label="Social links">
           <a class="social" target="_blank" rel="noopener" href="https://instagram.com/flamurjashari7" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
             Instagram
           </a>
 
           <a class="social" target="_blank" rel="noopener" href="https://facebook.com/flamurjashari4" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V7.3c0-.8.4-1.3 1.4-1.3H17V3.2h-2.2C12.7 3.2 12 4.7 12 6.9v1.6H10v2.6h2V21h3v-9.9h2.1l.3-2.6H15Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14 8.5V7.3c0-.8.4-1.3 1.4-1.3H17V3.2h-2.2C12.7 3.2 12 4.7 12 6.9v1.6H10v2.6h2V21h3v-9.9h2.1l.3-2.6H15Z"/>
+            </svg>
             Facebook
           </a>
 
           <a class="social" target="_blank" rel="noopener" href="https://x.com/flamurjashari4" aria-label="X">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.6 3H21l-5.2 6 6.1 12h-4.3l-3.9-7.7L7.6 21H5.2l5.7-6.7L5 3h4.4l3.5 6.7L18.6 3Zm-1.5 16h1.2L8 4.9H6.7l10.4 14.1Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.6 3H21l-5.2 6 6.1 12h-4.3l-3.9-7.7L7.6 21H5.2l5.7-6.7L5 3h4.4l3.5 6.7L18.6 3Zm-1.5 16h1.2L8 4.9H6.7l10.4 14.1Z"/>
+            </svg>
             X
           </a>
         </div>
@@ -581,7 +615,7 @@
         <p style="margin-top:24px" class="muted">
           Email: <a class="inline" href="mailto:info@flamurjashari.com">info@flamurjashari.com</a><br/>
           WhatsApp: <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
-          📍 Albania / Tiranë
+          Lokacion: Albania / Tiranë
         </p>
       </div>
     </section>
