@@ -81,7 +81,7 @@
       flex-direction: column;
       align-items:flex-start;
       justify-content:space-between;
-      width: 100%; /* Shton gjerësi të plotë që logoja IT të shkojë djathtas */
+      width: 100%;
       gap:24px;
       padding-top:20px;
     }
@@ -158,6 +158,7 @@
       transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
       position:relative;
       overflow:hidden;
+      cursor: pointer;
     }
     
     .btn.primary{
@@ -230,7 +231,6 @@
       width: fit-content;
     }
 
-    /* Rregullimet Specifike Për Mobile */
     @media (max-width: 767px) {
       .logo-it {
         position: absolute;
@@ -247,8 +247,6 @@
         gap: 12px;
       }
       .brand .btn { width: 100%; padding: 14px 8px; font-size: 15px;}
-      
-      /* Qendron Albania/Tirane në mes */
       .badge { align-self: center; margin-top: 20px; }
     }
 
@@ -324,7 +322,7 @@
          border-color: rgba(34,197,94, 0.2);
     }
 
-    .card h2{ margin:0 0 12px; font-size: 24px; font-weight: 700; letter-spacing:-0.01em; }
+    .card h2{ margin:0 0 12px; font-size: 24px; font-weight: 700; letter-spacing:-0.01em; width: 100%;}
     .card p{ margin:0 0 12px; color:var(--muted); line-height:1.7; font-size:16px; font-weight: 300; }
     .card ul{ margin: 16px 0 0; padding-left: 20px; color: var(--muted); line-height:1.8; font-weight: 300; }
     .card li b{color: var(--text); font-weight: 500;}
@@ -346,21 +344,82 @@
     a.inline{ color: var(--accent); text-decoration: none; transition: color 0.2s; }
     a.inline:hover{color: var(--accent2);}
 
-    /* --- RREGULLIMI PËR SEKSIONIN KONTAKT ("MENU APLIKACIONESH") --- */
+    /* --- STILIZIMI I SEKSIONIT TË KRIPTO-S --- */
+    .crypto-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    .crypto-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.05);
+      transition: all .2s ease;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .crypto-item:hover {
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.15);
+    }
+    .crypto-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .crypto-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .crypto-icon-box.btc { background: rgba(247, 147, 26, 0.15); color: #f7931a; }
+    .crypto-icon-box.eth { background: rgba(98, 126, 234, 0.15); color: #627eea; }
+    .crypto-icon-box.usdt { background: rgba(38, 161, 123, 0.15); color: #26a17b; }
+    .crypto-icon-box svg { width: 24px; height: 24px; }
     
+    .crypto-name { font-weight: 600; font-size: 16px; color: var(--text); }
+    .crypto-net { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+    
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .btn-copy:hover { background: rgba(255,255,255,.1); }
+    .btn-copy svg { width: 16px; height: 16px; }
+
+    /* --- KONTAKTI DHE MENUTË E APLIKACIONEVE --- */
     #contact .btnrow {
       display: flex;
-      flex-direction: column; /* I radhit njëri nën tjetrin */
+      flex-direction: column; 
       gap: 14px;
       width: 100%;
     }
-    
     #contact .btn {
-      width: 100%; /* Marrin gjerësi të plotë */
+      width: 100%; 
       justify-content: center;
       padding: 16px;
     }
-
     .socials{
       display: flex;
       flex-wrap: wrap;
@@ -368,9 +427,8 @@
       margin-top: 24px;
       width: 100%;
     }
-    
     .social{
-      flex: 1 1 calc(33.333% - 12px); /* 3 në një rresht për desktop */
+      flex: 1 1 calc(33.333% - 12px); 
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -385,18 +443,16 @@
       font-weight: 500;
       transition: all .2s ease;
     }
-    
     .social:hover{
       transform: translateY(-2px);
       border-color: rgba(255,255,255,.15);
       background: rgba(255,255,255,.06);
     }
 
-    /* Në mobile zbresin të gjithë butonat si Menu */
     @media (max-width: 600px) {
-      .social { 
-        flex: 1 1 100%; /* Një nga një poshtë */
-      }
+      .social { flex: 1 1 100%; }
+      .crypto-item { flex-direction: column; align-items: flex-start; }
+      .btn-copy { width: 100%; }
     }
 
     .wa-float{
@@ -549,23 +605,84 @@
       </div>
     </section>
 
+    <section id="payments" class="grid" style="margin-top:24px">
+      <div class="card reveal">
+        <h2>Metodat e Pagesës & Kriptomonedhat</h2>
+        <p>Për t'jua bërë sa më të lehtë procesin e bashkëpunimit, pranoj pagesa globale përmes PayPal dhe teknologjisë Web3. Klikoni butonin për të kopjuar adresën e portofolit.</p>
+        
+        <div class="crypto-list">
+          
+          <div class="crypto-item">
+            <div class="crypto-info">
+              <div class="crypto-icon-box btc">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.055 10.322c1.096-.347 1.886-1.045 1.954-2.22.083-1.428-.868-2.18-2.614-2.348v-2.15h-1.637v2.105h-1.3v-2.105h-1.63v2.17h-2.583l.21 2.05s1.205.105 1.18.095c.656.065.776.5.755.79v6.52c.046.126-.145.316-.76.185.025.024-1.18-.095-1.18-.095l-.75 2.185h2.518v2.227h1.63v-2.188h1.306v2.188h1.638v-2.238c1.996-.104 3.444-1.01 3.23-2.73-.173-1.39-1.03-1.993-2.195-2.22zM10.82 8.414h1.75c1.157 0 1.97.585 1.97 1.54 0 .977-.852 1.62-2.074 1.62h-1.646V8.414zm2.08 6.476h-2.08v-2.775h2.155c1.235 0 2.21 1.68 0 1.055-.953 1.095-2.285 1.095z"/></svg>
+              </div>
+              <div>
+                <span class="crypto-name">Bitcoin (BTC)</span>
+                <span class="crypto-net">Rrjeti: Bitcoin Network</span>
+              </div>
+            </div>
+            <button class="btn-copy" onclick="copyCrypto('3GDABBS8Fo6MUwX4XpvScsCMFbG5YRt94o', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Kopjo Adresën
+            </button>
+          </div>
+
+          <div class="crypto-item">
+            <div class="crypto-info">
+              <div class="crypto-icon-box eth">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
+              </div>
+              <div>
+                <span class="crypto-name">Ethereum (ETH)</span>
+                <span class="crypto-net">Rrjeti: ERC-20 / BEP-20</span>
+              </div>
+            </div>
+            <button class="btn-copy" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Kopjo Adresën
+            </button>
+          </div>
+
+          <div class="crypto-item">
+            <div class="crypto-info">
+              <div class="crypto-icon-box usdt">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm1.618-12.784v2.09c0 .034-.012.062-.036.082a.114.114 0 0 1-.077.026c-1.393.183-2.484.282-3.272.298-.445.008-.857.01-1.233.003-.54-.01-.98-.052-1.318-.124a.123.123 0 0 1-.082-.033.11.11 0 0 1-.03-.082v-2.25c.34.057.77.102 1.285.137.49.034.985.05 1.487.05.578 0 1.144-.013 1.696-.04.498-.024.935-.06 1.31-.107.126-.016.216-.032.27-.05zm4.846-1.503c0 .87-1.173 1.637-3.52 2.302v3.744h-2.435v-3.71c-2.46-.574-3.692-1.353-3.692-2.336 0-1.135 1.683-1.955 5.048-2.463V5.558h2.08v1.657c3.005.617 4.51 1.442 4.51 2.476L18.463 9.713z"/></svg>
+              </div>
+              <div>
+                <span class="crypto-name">Tether (USDT)</span>
+                <span class="crypto-net">Rrjeti: ERC-20 / BEP-20</span>
+              </div>
+            </div>
+            <button class="btn-copy" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Kopjo Adresën
+            </button>
+          </div>
+
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.05); margin: 28px 0;">
+
+        <a class="btn primary"
+           target="_blank"
+           rel="noopener"
+           href="https://paypal.me/flamurjashari99"
+           style="background: linear-gradient(135deg, #0070ba, #1546a0); color: #ffffff; width: 100%; padding: 18px;">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.641.641 0 0 1 .633-.537h6.436c1.785 0 3.19.16 4.167.472 1.488.476 2.404 1.41 2.684 2.734.228 1.077.108 2.106-.35 3.013-.497.986-1.298 1.83-2.345 2.472-1.037.637-2.348 1.054-3.838 1.218-.328.036-.66.055-.995.055H8.64a.641.641 0 0 0-.633.537l-1.464 8.018a.64.64 0 0 1-.634.535l1.167-6.398h2.06c1.55 0 2.798-.106 3.655-.31 1.246-.296 2.11-.904 2.53-1.78.36-.75.445-1.594.246-2.472-.25-1.1-.96-1.815-2.078-2.09-.768-.19-1.834-.23-3.123-.23H5.974l-2.04 11.173h2.648l.494-2.705z"/>
+          </svg>
+          Paguaj përmes PayPal
+        </a>
+      </div>
+    </section>
+
     <section id="contact" class="grid" style="margin-top:24px">
       <div class="card reveal">
         <h2>Konsultohuni për Projektin Tuaj</h2>
-        <p>Keni një projekt në mendje apo një problem teknik që kërkon zgjidhje të shpejtë? Më kontaktoni për një konsultim:</p>
+        <p>Keni një projekt në mendje apo një problem teknik që kërkon zgjidhje të shpejtë? Më kontaktoni:</p>
 
         <div class="btnrow">
-          <a class="btn primary"
-             target="_blank"
-             rel="noopener"
-             href="https://paypal.me/flamurjashari99"
-             style="background: linear-gradient(135deg, #0070ba, #1546a0); color: #ffffff;">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.641.641 0 0 1 .633-.537h6.436c1.785 0 3.19.16 4.167.472 1.488.476 2.404 1.41 2.684 2.734.228 1.077.108 2.106-.35 3.013-.497.986-1.298 1.83-2.345 2.472-1.037.637-2.348 1.054-3.838 1.218-.328.036-.66.055-.995.055H8.64a.641.641 0 0 0-.633.537l-1.464 8.018a.64.64 0 0 1-.634.535l1.167-6.398h2.06c1.55 0 2.798-.106 3.655-.31 1.246-.296 2.11-.904 2.53-1.78.36-.75.445-1.594.246-2.472-.25-1.1-.96-1.815-2.078-2.09-.768-.19-1.834-.23-3.123-.23H5.974l-2.04 11.173h2.648l.494-2.705z"/>
-            </svg>
-            Paguaj me PayPal
-          </a>
-
           <a class="btn"
              target="_blank"
              rel="noopener"
@@ -626,8 +743,10 @@
   </main>
 
   <script>
+    // Dinamikisht viti në Footer
     document.getElementById("y").textContent = new Date().getFullYear();
 
+    // Animacionet kur bën scroll poshtë
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -639,6 +758,33 @@
     }, { threshold: 0.12 });
 
     els.forEach(el => io.observe(el));
+
+    // Skripti për të kopjuar automatikisht adresat e Kriptove
+    function copyCrypto(address, btn) {
+      navigator.clipboard.writeText(address).then(() => {
+        // Ruan përmbajtjen origjinale
+        const originalHTML = btn.innerHTML;
+        const originalColor = btn.style.color;
+        const originalBorder = btn.style.borderColor;
+        const originalBg = btn.style.background;
+
+        // Ndryshon butonin në "Kopjuar!" dhe e bën jeshil
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Kopjuar!`;
+        btn.style.color = '#22c55e';
+        btn.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+        btn.style.background = 'rgba(34, 197, 94, 0.08)';
+
+        // Pas 2.5 sekondash kthehet siç ishte
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.color = originalColor;
+          btn.style.borderColor = originalBorder;
+          btn.style.background = originalBg;
+        }, 2500);
+      }).catch(err => {
+        alert("Pati një gabim në kopjim. Ju lutem provoni përsëri.");
+      });
+    }
   </script>
 </body>
 </html>
