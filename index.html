@@ -110,8 +110,10 @@
       border-radius: 4px;
     }
 
-    /* PËRDITËSUAR: Fsheh anglishten si standard */
-    [lang="en"] { display: none; }
+        /* Kontrolli i gjuhës me klasë */
+    body:not(.gjuha-en) [lang="en"] { display: none; }
+    body.gjuha-en [lang="sq"] { display: none; }
+
 
     .wrap{max-width:1020px; margin:0 auto; padding:20px 24px 80px; position:relative; z-index:1;}
 
@@ -897,14 +899,11 @@
     // Viti Dinamik
     document.getElementById("y").textContent = new Date().getFullYear();
 
-        // Skripti i Gjuhës
+         // Skripti i Gjuhës
     function toggleLang() {
-      const sq = document.querySelectorAll('body [lang="sq"]');
-      const en = document.querySelectorAll('body [lang="en"]');
-      const isSq = sq[0].style.display !== 'none';
+      document.body.classList.toggle('gjuha-en');
+    }
 
-      sq.forEach(el => el.style.display = isSq ? 'none' : 'inline-block');
-      en.forEach(el => el.style.display = isSq ? 'inline-block' : 'none');
     }
 
     }
