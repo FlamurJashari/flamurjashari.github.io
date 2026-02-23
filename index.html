@@ -110,10 +110,10 @@
       border-radius: 4px;
     }
 
-        /* Kontrolli i gjuhës me klasë */
-    body:not(.gjuha-en) [lang="en"] { display: none; }
-    body.gjuha-en [lang="sq"] { display: none; }
-
+    /* KONTROLLI I GJUHËS */
+    [lang="en"] { display: none; }
+    body.gjuha-en [lang="sq"] { display: none !important; }
+    body.gjuha-en [lang="en"] { display: inline-block !important; }
 
     .wrap{max-width:1020px; margin:0 auto; padding:20px 24px 80px; position:relative; z-index:1;}
 
@@ -395,7 +395,7 @@
     details[open] summary::after { content: "−"; }
     details p { padding: 0 20px 20px; margin: 0; color: var(--muted); line-height: 1.6; }
 
-    /* SHTUAR: Contact Form Styling */
+    /* Contact Form Styling */
     .contact-form { width: 100%; display: grid; gap: 16px; margin-top: 24px; }
     .form-group { display: flex; flex-direction: column; gap: 8px; }
     .form-group label { font-size: 14px; color: var(--muted); font-weight: 500; }
@@ -405,7 +405,7 @@
     }
     .input-style:focus { border-color: var(--accent); outline: none; background: rgba(255,255,255,0.05); }
 
-    /* SHTUAR: Modal Styles për Privacy & Terms */
+    /* Modal Styles */
     .modal {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8);
       backdrop-filter: blur(10px); display: none; align-items: center;
@@ -899,13 +899,9 @@
     // Viti Dinamik
     document.getElementById("y").textContent = new Date().getFullYear();
 
-         // Skripti i Gjuhës
+    // Skripti i Gjuhës
     function toggleLang() {
       document.body.classList.toggle('gjuha-en');
-    }
-
-    }
-
     }
 
     // Skripti i Modals
