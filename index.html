@@ -247,6 +247,11 @@
         gap: 12px;
       }
       .brand .btn { width: 100%; padding: 14px 8px; font-size: 15px;}
+      
+      .brand .btnrow .btn:nth-child(3) {
+        grid-column: 1 / -1; 
+      }
+
       .badge { align-self: center; margin-top: 20px; }
     }
 
@@ -537,6 +542,14 @@
             </svg>
             Shërbimet
           </a>
+
+          <a class="btn" href="#payments" aria-label="Shko te Pagesat" style="border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.05); color: var(--accent);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
+            Pagesat
+          </a>
         </div>
 
         <div class="badge" title="Location">📍 Albania / Tiranë</div>
@@ -608,10 +621,9 @@
     <section id="payments" class="grid" style="margin-top:24px">
       <div class="card reveal">
         <h2>Pagesa Globale & Kripto</h2>
-        <p>Për t'jua bërë sa më të lehtë procesin e bashkëpunimit, pranoj pagesa globale përmes PayPal dhe teknologjisë Web3. Klikoni butonin për të kopjuar adresën e portofolit.</p>
+        <p>Për t'jua bërë sa më të lehtë procesin e bashkëpunimit, pranoj pagesa globale përmes PayPal dhe Kriptomonedhave. Klikoni butonin për të kopjuar adresën e portofolit.</p>
         
         <div class="crypto-list">
-          
           <div class="crypto-item">
             <div class="crypto-info">
               <div class="crypto-icon-box btc">
@@ -729,8 +741,9 @@
           </a>
         </div>
 
-        <p style="margin-top:24px" class="muted">
-          Email: <a class="inline" href="mailto:info@flamurjashari.com">info@flamurjashari.com</a><br/>
+        <p style="margin-top:24px; line-height: 1.8;" class="muted">
+          Email (Gjeneral): <a class="inline" href="mailto:info@flamurjashari.com">info@flamurjashari.com</a><br/>
+          Email (IT Support): <a class="inline" href="mailto:it@flamurjashari.com">it@flamurjashari.com</a><br/>
           WhatsApp: <a class="inline" target="_blank" rel="noopener" href="https://wa.me/38346124923">+383 46 124 923</a><br/>
           Lokacion: Albania / Tiranë
         </p>
