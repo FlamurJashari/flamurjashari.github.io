@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Account • Flamur Jashari</title>
   <meta name="color-scheme" content="dark" />
+
   <style>
     body{
       margin:0;
@@ -19,8 +20,9 @@
       justify-content:center;
       padding:24px;
     }
+
     .card{
-      width:min(520px, 100%);
+      width:min(980px, 100%);
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.14);
       border-radius:18px;
@@ -28,12 +30,25 @@
       backdrop-filter: blur(14px);
       overflow:hidden;
     }
+
     .head{
       padding:18px 18px 14px 18px;
       border-bottom:1px solid rgba(255,255,255,.12);
       display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
+
+    .brand{display:flex; align-items:center; gap:10px;}
+    .logo{
+      width:38px;height:38px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(56,189,248,.24), rgba(124,58,237,.20));
+      display:grid; place-items:center;
+      font-weight:950;
+      letter-spacing:.5px;
+    }
     .head b{font-size:18px}
+    .sub{color: rgba(255,255,255,.65); font-size:12px; margin-top:2px}
+
     .btn{
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.08);
@@ -42,6 +57,7 @@
       border-radius:14px;
       cursor:pointer;
       font-weight:800;
+      white-space:nowrap;
     }
     .btn:hover{background: rgba(255,255,255,.10)}
     .btn.primary{
@@ -49,83 +65,327 @@
       color:#061019;
     }
     .btn.primary:hover{filter: brightness(1.04)}
+    .btn.danger{
+      border-color: rgba(239,68,68,.35);
+      box-shadow: 0 0 0 4px rgba(239,68,68,.08);
+    }
+
     .body{padding:18px}
-    .row{display:flex; gap:14px; align-items:center}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr 1.45fr;
+      gap:16px;
+    }
+    @media (max-width: 860px){ .grid{grid-template-columns: 1fr} }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:14px;
+    }
+
+    .panel h3{
+      margin:0 0 10px 0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    .panel .hint{
+      color: rgba(255,255,255,.62);
+      font-size:12px;
+      line-height:1.35;
+      margin-top:8px;
+    }
+
+    .avatarWrap{display:flex; gap:14px; align-items:center}
     .avatar{
-      width:64px;height:64px;border-radius:18px;
+      width:72px;height:72px;border-radius:18px;
       border:1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.08);
       overflow:hidden;
       display:grid; place-items:center;
-      font-weight:900;
+      font-weight:950;
+      flex:0 0 auto;
     }
     .avatar img{width:100%; height:100%; object-fit:cover}
+
     .meta{line-height:1.25}
-    .meta .name{font-size:18px; font-weight:900}
+    .meta .name{font-size:18px; font-weight:950}
     .meta .email{color: rgba(255,255,255,.65); margin-top:4px}
-    .box{
-      margin-top:14px;
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.80);
+      font-size:12px;
+      margin-top:8px;
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:rgba(34,197,94,.95)}
+    .dot.bad{background: rgba(239,68,68,.95)}
+
+    .kvs{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .kv{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius:14px;
+      padding:10px;
+    }
+    .kv .k{color: rgba(255,255,255,.62); font-size:11px}
+    .kv .v{margin-top:4px; font-weight:850; font-size:13px; color: rgba(255,255,255,.90); word-break:break-word}
+
+    .uploadLine{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top:10px;
+    }
+    .file{
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(255,255,255,.05);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:850;
+    }
+    .file input{display:none}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      font-size:12px;
+      color: rgba(255,255,255,.72);
+    }
+
+    .form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 620px){ .form{grid-template-columns: 1fr} }
+    label{
+      display:block;
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      margin:0 0 6px 2px;
+      font-weight:800;
+    }
+    input, select, textarea{
+      width:100%;
+      box-sizing:border-box;
       padding:12px 12px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      color: rgba(255,255,255,.75);
-      font-size:13px;
-      line-height:1.4;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      outline:none;
+      font-size:14px;
     }
-    .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
-    a{color: rgba(56,189,248,.95); text-decoration:none}
+    input::placeholder, textarea::placeholder{color: rgba(255,255,255,.40)}
+    textarea{min-height:92px; resize:vertical}
+    .span2{grid-column: span 2}
+    @media (max-width: 620px){ .span2{grid-column: span 1} }
+
+    .actions{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .leftActions, .rightActions{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .small{color: rgba(255,255,255,.55); font-size:12px;}
+    a{color: rgba(56,189,248,.95); text-decoration:none; font-weight:900}
     a:hover{text-decoration:underline}
+
     .msg{
       display:none;
       margin-top:12px;
       padding:10px 12px;
       border-radius:14px;
-      border:1px solid rgba(239,68,68,.35);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.18);
-      box-shadow: 0 0 0 4px rgba(239,68,68,.10);
       font-size:13px;
+      line-height:1.35;
     }
     .msg.show{display:block}
+    .msg.ok{border-color: rgba(34,197,94,.35); box-shadow: 0 0 0 4px rgba(34,197,94,.10)}
+    .msg.bad{border-color: rgba(239,68,68,.35); box-shadow: 0 0 0 4px rgba(239,68,68,.10)}
   </style>
 </head>
+
 <body>
   <div class="card">
     <div class="head">
-      <b>My Account</b>
-      <button class="btn" onclick="window.location.href='/index.html'">Home</button>
+      <div class="brand">
+        <div class="logo">IT</div>
+        <div>
+          <b>My Account</b>
+          <div class="sub">Premium profile • Auth + Firestore + Storage</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="btn" onclick="window.location.href='/index.html'">Home</button>
+        <button class="btn danger" id="logoutBtn">Logout</button>
+      </div>
     </div>
 
     <div class="body">
-      <div class="row">
-        <div class="avatar" id="avatar">
-          <span id="initials">FJ</span>
+      <div class="grid">
+
+        <!-- LEFT -->
+        <div class="panel">
+          <h3>Profile Overview</h3>
+
+          <div class="avatarWrap">
+            <div class="avatar" id="avatar"><span id="initials">FJ</span></div>
+            <div class="meta">
+              <div class="name" id="name">Loading…</div>
+              <div class="email" id="email">—</div>
+
+              <div class="pill">
+                <span class="dot" id="statusDot"></span>
+                <span id="statusText">Signed in</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="uploadLine">
+            <label class="file">
+              <input id="photoFile" type="file" accept="image/*" />
+              📷 Upload Photo
+            </label>
+            <button class="btn" id="uploadBtn" type="button">Save Photo</button>
+            <span class="badge" id="photoState">No changes</span>
+          </div>
+
+          <div class="kvs">
+            <div class="kv"><div class="k">UID</div><div class="v" id="uid">—</div></div>
+            <div class="kv"><div class="k">Provider</div><div class="v" id="provider">—</div></div>
+            <div class="kv"><div class="k">Last updated</div><div class="v" id="lastUpdated">—</div></div>
+            <div class="kv"><div class="k">Account</div><div class="v" id="accountType">Premium</div></div>
+          </div>
+
+          <div class="hint">
+            * Emri/email/foto janë nga <b>Firebase Auth</b>.  
+            Fushat e profilit ruhen në <b>Firestore</b>.
+          </div>
         </div>
-        <div class="meta">
-          <div class="name" id="name">Loading…</div>
-          <div class="email" id="email">—</div>
+
+        <!-- RIGHT -->
+        <div class="panel">
+          <h3>Profile Settings</h3>
+
+          <div class="form">
+            <div>
+              <label for="firstName">Emri</label>
+              <input id="firstName" placeholder="Flamur" autocomplete="given-name" />
+            </div>
+            <div>
+              <label for="lastName">Mbiemri</label>
+              <input id="lastName" placeholder="Jashari" autocomplete="family-name" />
+            </div>
+
+            <div>
+              <label for="displayName">Display name</label>
+              <input id="displayName" placeholder="Flamur Jashari" />
+            </div>
+            <div>
+              <label for="phone">Telefon</label>
+              <input id="phone" placeholder="+49..." autocomplete="tel" />
+            </div>
+
+            <div>
+              <label for="dob">Datëlindja</label>
+              <input id="dob" type="date" />
+            </div>
+            <div>
+              <label for="gender">Gjinia</label>
+              <select id="gender">
+                <option value="">Zgjidh…</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer_not">Prefer not to say</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="country">Shteti</label>
+              <input id="country" placeholder="Germany" autocomplete="country-name" />
+            </div>
+            <div>
+              <label for="city">Qyteti</label>
+              <input id="city" placeholder="Frankfurt" autocomplete="address-level2" />
+            </div>
+
+            <div>
+              <label for="postal">Kodi postar</label>
+              <input id="postal" placeholder="60311" autocomplete="postal-code" />
+            </div>
+            <div>
+              <label for="state">Shteti/Province</label>
+              <input id="state" placeholder="Hessen" autocomplete="address-level1" />
+            </div>
+
+            <div class="span2">
+              <label for="address">Adresa</label>
+              <input id="address" placeholder="Rruga, Nr, Apartment…" autocomplete="street-address" />
+            </div>
+
+            <div>
+              <label for="website">Website</label>
+              <input id="website" placeholder="https://flamurjashari.com" />
+            </div>
+            <div>
+              <label for="jobTitle">Titulli</label>
+              <input id="jobTitle" placeholder="Web Developer • IT Support" />
+            </div>
+
+            <div class="span2">
+              <label for="bio">Bio (About you)</label>
+              <textarea id="bio" placeholder="Shkruaj diçka profesionale…"></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="leftActions">
+              <button class="btn primary" id="saveBtn" type="button">Save changes</button>
+              <button class="btn" id="reloadBtn" type="button">Refresh</button>
+              <span class="small" id="saveState">Ready.</span>
+            </div>
+            <div class="rightActions">
+              <a href="/login.html">Login</a>
+              <a href="/register.html">Register</a>
+            </div>
+          </div>
+
+          <div class="msg" id="msg"></div>
         </div>
-      </div>
 
-      <div class="box">
-        Këtu shfaqen të dhënat e user-it nga Firebase Auth (name/email/photo).
-        Nëse s’je i kyçur, do të ridrejtohesh te login.
       </div>
-
-      <div class="actions">
-        <button class="btn primary" id="logoutBtn">Logout</button>
-        <button class="btn" id="reloadBtn">Refresh</button>
-        <a href="/login.html">Login</a>
-        <a href="/register.html">Register</a>
-      </div>
-
-      <div class="msg" id="msg"></div>
     </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
@@ -139,16 +399,57 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
+    // UI refs
     const nameEl = document.getElementById("name");
     const emailEl = document.getElementById("email");
     const avatarEl = document.getElementById("avatar");
-    const initialsEl = document.getElementById("initials");
     const msgEl = document.getElementById("msg");
 
-    function showError(t){
-      msgEl.textContent = t;
-      msgEl.classList.add("show");
+    const uidEl = document.getElementById("uid");
+    const providerEl = document.getElementById("provider");
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+    const accountTypeEl = document.getElementById("accountType");
+
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+
+    const saveBtn = document.getElementById("saveBtn");
+    const reloadBtn = document.getElementById("reloadBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const saveState = document.getElementById("saveState");
+
+    const photoFile = document.getElementById("photoFile");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const photoState = document.getElementById("photoState");
+
+    // form fields
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+    const displayName = document.getElementById("displayName");
+    const phone = document.getElementById("phone");
+    const dob = document.getElementById("dob");
+    const gender = document.getElementById("gender");
+    const country = document.getElementById("country");
+    const city = document.getElementById("city");
+    const postal = document.getElementById("postal");
+    const state = document.getElementById("state");
+    const address = document.getElementById("address");
+    const website = document.getElementById("website");
+    const jobTitle = document.getElementById("jobTitle");
+    const bio = document.getElementById("bio");
+
+    let currentUser = null;
+
+    function showMsg(type, text){
+      msgEl.className = "msg show " + (type === "ok" ? "ok" : "bad");
+      msgEl.textContent = text;
+    }
+    function clearMsg(){
+      msgEl.className = "msg";
+      msgEl.textContent = "";
     }
 
     function initialsFrom(user){
@@ -159,33 +460,209 @@
       return (a + b).toUpperCase();
     }
 
-    onAuthStateChanged(auth, (user) => {
+    function setAvatar(user){
+      const inits = initialsFrom(user);
+      if (user.photoURL){
+        avatarEl.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+      } else {
+        avatarEl.innerHTML = `<span>${inits}</span>`;
+      }
+    }
+
+    function providerFrom(user){
+      const p = (user.providerData && user.providerData[0] && user.providerData[0].providerId) ? user.providerData[0].providerId : "unknown";
+      return p;
+    }
+
+    function tsToText(ts){
+      try{
+        if (!ts) return "—";
+        const d = ts.toDate ? ts.toDate() : new Date(ts);
+        return d.toLocaleString();
+      } catch { return "—"; }
+    }
+
+    async function loadProfile(uid){
+      const refDoc = doc(db, "users", uid);
+      const snap = await getDoc(refDoc);
+
+      if (!snap.exists()){
+        await setDoc(refDoc, {
+          accountType: "Premium",
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        }, { merge:true });
+        return { accountType:"Premium" };
+      }
+      return snap.data() || {};
+    }
+
+    function fillForm(data){
+      firstName.value = data.firstName || "";
+      lastName.value = data.lastName || "";
+      displayName.value = data.displayName || "";
+      phone.value = data.phone || "";
+      dob.value = data.dob || "";
+      gender.value = data.gender || "";
+      country.value = data.country || "";
+      city.value = data.city || "";
+      postal.value = data.postal || "";
+      state.value = data.state || "";
+      address.value = data.address || "";
+      website.value = data.website || "";
+      jobTitle.value = data.jobTitle || "";
+      bio.value = data.bio || "";
+
+      accountTypeEl.textContent = data.accountType || "Premium";
+      lastUpdatedEl.textContent = tsToText(data.updatedAt);
+    }
+
+    async function saveProfile(uid){
+      const refDoc = doc(db, "users", uid);
+
+      const payload = {
+        firstName: firstName.value.trim(),
+        lastName: lastName.value.trim(),
+        displayName: displayName.value.trim(),
+        phone: phone.value.trim(),
+        dob: dob.value || "",
+        gender: gender.value || "",
+        country: country.value.trim(),
+        city: city.value.trim(),
+        postal: postal.value.trim(),
+        state: state.value.trim(),
+        address: address.value.trim(),
+        website: website.value.trim(),
+        jobTitle: jobTitle.value.trim(),
+        bio: bio.value.trim(),
+        accountType: "Premium",
+        updatedAt: serverTimestamp()
+      };
+
+      await setDoc(refDoc, payload, { merge:true });
+
+      // Sync displayName to Auth (nice)
+      const newDisplay =
+        payload.displayName ||
+        `${payload.firstName} ${payload.lastName}`.trim();
+
+      if (newDisplay && currentUser){
+        await updateProfile(currentUser, { displayName: newDisplay });
+        nameEl.textContent = newDisplay;
+      }
+
+      saveState.textContent = "Saved ✓";
+    }
+
+    async function uploadPhoto(uid){
+      const file = photoFile.files && photoFile.files[0];
+      if (!file) { showMsg("bad", "Zgjidh një foto (image) fillimisht."); return; }
+      if (!file.type.startsWith("image/")){
+        showMsg("bad", "File duhet të jetë image (jpg/png/webp).");
+        return;
+      }
+
+      clearMsg();
+      photoState.textContent = "Uploading…";
+      uploadBtn.disabled = true;
+
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `avatars/${uid}.${ext}`;
+      const storageRef = ref(storage, path);
+
+      await uploadBytes(storageRef, file, { contentType: file.type });
+      const url = await getDownloadURL(storageRef);
+
+      if (currentUser){
+        await updateProfile(currentUser, { photoURL: url });
+      }
+
+      // save in Firestore too
+      const refDoc = doc(db, "users", uid);
+      await setDoc(refDoc, { photoURL: url, updatedAt: serverTimestamp() }, { merge:true });
+
+      photoState.textContent = "Saved ✓";
+      uploadBtn.disabled = false;
+      setAvatar(auth.currentUser);
+
+      showMsg("ok", "Fotoja u ruajt me sukses.");
+    }
+
+    onAuthStateChanged(auth, async (user) => {
       if (!user){
-        // s’je i kyçur -> login
         window.location.href = "/login.html";
         return;
       }
 
+      currentUser = user;
+      clearMsg();
+
       nameEl.textContent = user.displayName || "User";
       emailEl.textContent = user.email || "—";
+      uidEl.textContent = user.uid;
+      providerEl.textContent = providerFrom(user);
 
-      const inits = initialsFrom(user);
-      initialsEl.textContent = inits;
+      statusDot.classList.remove("bad");
+      statusText.textContent = "Signed in";
 
-      // photo
-      if (user.photoURL){
-        avatarEl.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-      } else {
-        avatarEl.innerHTML = `<span id="initials">${inits}</span>`;
+      setAvatar(user);
+
+      try{
+        saveState.textContent = "Loading profile…";
+        const data = await loadProfile(user.uid);
+        fillForm(data);
+
+        // if firestore has displayName and auth doesn't, sync
+        if (data.displayName && !user.displayName){
+          await updateProfile(user, { displayName: data.displayName });
+          nameEl.textContent = data.displayName;
+        }
+
+        saveState.textContent = "Ready.";
+      } catch (e){
+        showMsg("bad", "S’po mundem me lexu Firestore. A e ke aktivizu Firestore Database? " + e.message);
+        saveState.textContent = "Error";
       }
     });
 
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
+    // events
+    saveBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      try{
+        clearMsg();
+        saveState.textContent = "Saving…";
+        saveBtn.disabled = true;
+        await saveProfile(currentUser.uid);
+        showMsg("ok", "Profili u ruajt ✅");
+      } catch (e){
+        showMsg("bad", "S’po mundem me ruajt. Kontrollo Firestore rules (test mode). " + e.message);
+        saveState.textContent = "Error";
+      } finally{
+        saveBtn.disabled = false;
+      }
+    });
+
+    uploadBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      try{
+        await uploadPhoto(currentUser.uid);
+      } catch (e){
+        uploadBtn.disabled = false;
+        photoState.textContent = "Failed";
+        showMsg("bad", "Upload dështoi. Aktivizo Storage dhe test rules. " + e.message);
+      }
+    });
+
+    photoFile.addEventListener("change", () => {
+      photoState.textContent = photoFile.files && photoFile.files[0] ? "Ready to upload" : "No changes";
+    });
+
+    reloadBtn.addEventListener("click", () => location.reload());
+
+    logoutBtn.addEventListener("click", async () => {
       await signOut(auth);
       window.location.href = "/login.html";
     });
-
-    document.getElementById("reloadBtn").addEventListener("click", () => location.reload());
   </script>
 </body>
 </html>
