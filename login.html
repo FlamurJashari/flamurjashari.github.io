@@ -1,129 +1,648 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Login • Flamur Jashari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    :root{
+      --bg0:#070b16;
+      --bg1:#0b1226;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.5);
+      --brandA:#38bdf8;
+      --brandB:#7c3aed;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
+      --radius: 18px;
     }
 
-    .login-box {
-      background: #1e293b;
-      padding: 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% 20%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(1100px 700px at 85% 25%, rgba(124,58,237,.16), transparent 55%),
+        radial-gradient(1000px 700px at 55% 85%, rgba(34,197,94,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+    /* animated grid */
+    .grid{
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity:.08;
+      mask-image: radial-gradient(circle at 50% 35%, rgba(0,0,0,1), rgba(0,0,0,.1) 55%, transparent 75%);
+      pointer-events:none;
+      transform: translateZ(0);
     }
 
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      font-size: 14px;
+    /* floating blobs */
+    .blob{
+      position:fixed;
+      width:520px; height:520px;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity:.45;
+      pointer-events:none;
+      transform: translateZ(0);
+      animation: float 10s ease-in-out infinite;
+    }
+    .blob.one{left:-180px; top:-120px; background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.55), transparent 60%);}
+    .blob.two{right:-200px; top:-140px; background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.55), transparent 60%); animation-duration: 12s;}
+    .blob.three{left:10%; bottom:-260px; background: radial-gradient(circle at 30% 30%, rgba(34,197,94,.35), transparent 60%); animation-duration: 14s;}
+
+    @keyframes float{
+      0%,100%{transform: translate(0,0) scale(1)}
+      50%{transform: translate(18px, -14px) scale(1.04)}
     }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #38bdf8;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 16px;
+      position:relative;
+    }
+
+    .shell{
+      width:min(1040px, 100%);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+
+    @media (max-width: 900px){
+      body{overflow:auto}
+      .shell{grid-template-columns: 1fr}
+    }
+
+    .panel{
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      backdrop-filter: blur(14px);
+    }
+
+    /* left premium info */
+    .hero{
+      padding: 26px 26px 22px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .topline{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+
+    .logo{
+      width:44px; height:44px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(124,58,237,.85));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 25px rgba(56,189,248,.15);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+    .logo svg{width:26px; height:26px; opacity:.95}
+
+    .brandtext{
+      line-height:1.1;
+    }
+    .brandtext .name{
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brandtext .tag{
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.15);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      letter-spacing:.25px;
+      white-space:nowrap;
+    }
+    .badge .dot{
+      width:8px;height:8px;border-radius:99px;
+      background: linear-gradient(90deg, var(--brandA), var(--brandB));
+      box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    .headline{
+      margin: 18px 0 10px;
+      font-size: 34px;
+      letter-spacing:-.6px;
+      font-weight: 900;
+    }
+    .sub{
+      color: var(--muted);
       font-size: 15px;
+      line-height: 1.6;
+      max-width: 50ch;
     }
 
-    button:hover {
-      background: #0ea5e9;
+    .bullets{
+      margin-top: 18px;
+      display:grid;
+      gap: 10px;
     }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+    }
+    .pill .i{
+      width:34px;height:34px;border-radius:12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      display:grid;place-items:center;
+      color: rgba(255,255,255,.9);
+      font-weight: 800;
+    }
+    .pill .t b{display:block}
+    .pill .t span{color: var(--muted2); font-size: 13px}
 
-    .links {
-      text-align: center;
-      margin-top: 15px;
+    .footerline{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+    .footerline a{color: rgba(56,189,248,.9); text-decoration:none}
+    .footerline a:hover{text-decoration:underline}
+
+    /* right login card */
+    .auth{
+      padding: 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .auth h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:-.3px;
+    }
+    .auth p{
+      margin: 8px 0 0;
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
     }
 
-    a {
-      color: #38bdf8;
-      text-decoration: none;
+    .form{
+      margin-top: 18px;
+      display:grid;
+      gap: 12px;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .field{
+      display:grid;
+      gap: 6px;
+    }
+    .labelrow{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px;
+    }
+    label{
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+    }
+    .hint{
+      font-size: 12px;
+      color: rgba(255,255,255,.5);
+    }
+
+    .inputwrap{
+      position:relative;
+    }
+    input{
+      width:100%;
+      padding: 12px 44px 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+      transition: border .2s, transform .1s;
+    }
+    input::placeholder{color: rgba(255,255,255,.35)}
+    input:focus{
+      border-color: rgba(56,189,248,.55);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    .iconbtn{
+      position:absolute;
+      right: 8px; top: 50%;
+      transform: translateY(-50%);
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.85);
+      display:grid; place-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .iconbtn:hover{background: rgba(255,255,255,.09)}
+
+    .actions{
+      margin-top: 8px;
+      display:grid;
+      gap: 10px;
+    }
+
+    .btn{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      cursor:pointer;
+      font-weight: 800;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      transition: transform .06s ease, filter .2s ease, background .2s ease;
+      user-select:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(56,189,248,.95), rgba(124,58,237,.9));
+      border-color: rgba(255,255,255,.18);
+      color: #061019;
+    }
+    .btn.primary:hover{filter: brightness(1.04)}
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+    }
+    .btn.secondary:hover{background: rgba(255,255,255,.09)}
+    .btn[disabled]{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+    .divider{
+      display:flex; align-items:center; gap: 12px;
+      margin: 8px 0;
+      color: rgba(255,255,255,.45);
+      font-size: 12.5px;
+    }
+    .divider:before,.divider:after{
+      content:"";
+      height:1px; flex:1;
+      background: rgba(255,255,255,.12);
+    }
+
+    .msg{
+      display:none;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+    .msg.show{display:block}
+    .msg.ok{border-color: rgba(34,197,94,.35); box-shadow: 0 0 0 4px rgba(34,197,94,.12)}
+    .msg.err{border-color: rgba(239,68,68,.35); box-shadow: 0 0 0 4px rgba(239,68,68,.10)}
+    .msg.warn{border-color: rgba(245,158,11,.35); box-shadow: 0 0 0 4px rgba(245,158,11,.10)}
+
+    .smalllinks{
+      margin-top: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+    }
+    .smalllinks a{
+      color: rgba(56,189,248,.95);
+      text-decoration:none;
+    }
+    .smalllinks a:hover{text-decoration:underline}
+
+    /* Google icon */
+    .gicon{
+      width:18px;height:18px; display:block;
     }
   </style>
 </head>
 
 <body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+  <div class="grid"></div>
 
-<div class="login-box">
-  <h2>Login</h2>
+  <div class="wrap">
+    <div class="shell">
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+      <!-- Left: Premium info -->
+      <section class="panel hero" aria-label="Welcome panel">
+        <div class="topline">
+          <div class="brand">
+            <div class="logo" aria-hidden="true">
+              <!-- simple code icon -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8 9L4.5 12 8 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 9L19.5 12 16 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13.5 7.5L10.5 16.5" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="brandtext">
+              <div class="name">Flamur Jashari</div>
+              <div class="tag">Digital Solutions • IT Support</div>
+            </div>
+          </div>
 
-  <button onclick="loginUser()">Login</button>
+          <div class="badge" title="IT & Development">
+            <span class="dot"></span>
+            <span>IT • DEV</span>
+          </div>
+        </div>
 
-  <div class="links">
-    <p>Nuk ke account? <a href="register.html">Register</a></p>
+        <div>
+          <div class="headline">Welcome back.</div>
+          <div class="sub">
+            Hyr në panelin tënd për të menaxhuar aksesin, shërbimet dhe të dhënat.
+            Siguria është prioritet: autentikim i mbrojtur me Firebase.
+          </div>
+
+          <div class="bullets">
+            <div class="pill">
+              <div class="i">🔒</div>
+              <div class="t">
+                <b>Secure Access</b>
+                <span>Email/Password & Google Sign-In</span>
+              </div>
+            </div>
+            <div class="pill">
+              <div class="i">⚡</div>
+              <div class="t">
+                <b>Fast & Modern</b>
+                <span>UI premium, responsive në mobile</span>
+              </div>
+            </div>
+            <div class="pill">
+              <div class="i">🛡️</div>
+              <div class="t">
+                <b>Protected Sessions</b>
+                <span>Kontroll i user-it pas login</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footerline">
+          <span>© <span id="year"></span> FlamurJashari</span>
+          <span>•</span>
+          <a href="/index.html">Kthehu te Home</a>
+        </div>
+      </section>
+
+      <!-- Right: Auth -->
+      <section class="panel auth" aria-label="Login panel">
+        <h2>Login</h2>
+        <p>Hyr me email/password ose me Google. Nëse ke probleme, përdor “Forgot password”.</p>
+
+        <div id="msg" class="msg" role="status" aria-live="polite"></div>
+
+        <div class="form">
+          <div class="field">
+            <div class="labelrow">
+              <label for="email">Email</label>
+              <span class="hint">p.sh. you@example.com</span>
+            </div>
+            <div class="inputwrap">
+              <input id="email" type="email" placeholder="Email address" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="labelrow">
+              <label for="password">Password</label>
+              <a class="hint" href="#" id="forgotLink" style="text-decoration:none;">Forgot?</a>
+            </div>
+            <div class="inputwrap">
+              <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+              <button class="iconbtn" id="togglePw" type="button" aria-label="Show password">👁️</button>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="loginBtn" type="button">
+              <span id="loginBtnText">Login</span>
+              <span id="loginSpinner" style="display:none;">⏳</span>
+            </button>
+
+            <div class="divider">ose</div>
+
+            <button class="btn secondary" id="googleBtn" type="button">
+              <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.774 32.655 29.291 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 16.108 19.007 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4c-7.682 0-14.344 4.337-17.694 10.691z"/>
+                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.197l-6.191-5.238C29.184 35.091 26.703 36 24 36c-5.27 0-9.737-3.319-11.292-7.946l-6.52 5.02C9.505 39.556 16.227 44 24 44z"/>
+                <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.721 2.022-2.093 3.748-3.894 4.965l.003-.002 6.191 5.238C36.951 39.005 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <div class="smalllinks">
+              <span>Nuk ke account? <a href="/register.html">Register</a></span>
+              <span><a href="/index.html">Home</a></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
-</div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
-    authDomain: "flamurjashariwebsite.firebaseapp.com",
-    projectId: "flamurjashariwebsite",
-    storageBucket: "flamurjashariwebsite.firebasestorage.app",
-    messagingSenderId: "960885072119",
-    appId: "1:960885072119:web:db76e098603ebfc32b73f2",
-    measurementId: "G-E148DJTD08"
-  };
+    // --- Firebase config (yours) ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
+      authDomain: "flamurjashariwebsite.firebaseapp.com",
+      projectId: "flamurjashariwebsite",
+      storageBucket: "flamurjashariwebsite.firebasestorage.app",
+      messagingSenderId: "960885072119",
+      appId: "1:960885072119:web:db76e098603ebfc32b73f2",
+      measurementId: "G-E148DJTD08"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-  window.loginUser = async function () {
-    const email = document.getElementById("email").value.trim();
-    const pass = document.getElementById("password").value;
+    // UI helpers
+    const msg = document.getElementById("msg");
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+    const loginBtnText = document.getElementById("loginBtnText");
+    const loginSpinner = document.getElementById("loginSpinner");
 
-    if (!email || !pass) {
-      alert("Plotëso email & password");
-      return;
+    function showMessage(type, text){
+      msg.className = "msg show " + type;
+      msg.textContent = text;
+    }
+    function clearMessage(){
+      msg.className = "msg";
+      msg.textContent = "";
+    }
+    function setLoading(isLoading){
+      loginBtn.disabled = isLoading;
+      loginBtnText.style.display = isLoading ? "none" : "inline";
+      loginSpinner.style.display = isLoading ? "inline" : "none";
     }
 
-    try {
-      await signInWithEmailAndPassword(auth, email, pass);
-      alert("Login OK 😎");
-      window.location.href = "index.html";
-    } catch (e) {
-      alert(e.message);
-    }
-  }
-</script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Toggle password
+    document.getElementById("togglePw").addEventListener("click", () => {
+      const isPw = passEl.type === "password";
+      passEl.type = isPw ? "text" : "password";
+      document.getElementById("togglePw").textContent = isPw ? "🙈" : "👁️";
+    });
+
+    // Email/Password login
+    async function loginWithEmail(){
+      clearMessage();
+
+      const email = emailEl.value.trim();
+      const pass = passEl.value;
+
+      if (!email || !pass){
+        showMessage("warn", "Plotëso email & password.");
+        return;
+      }
+
+      try{
+        setLoading(true);
+        await signInWithEmailAndPassword(auth, email, pass);
+        showMessage("ok", "Login OK ✅ Po të ridrejtoj…");
+        setTimeout(() => (window.location.href = "/index.html"), 700);
+      }catch(e){
+        // Friendly errors
+        const code = (e?.code || "").toLowerCase();
+        if (code.includes("auth/invalid-credential") || code.includes("auth/wrong-password")){
+          showMessage("err", "Email ose password gabim.");
+        } else if (code.includes("auth/user-not-found")){
+          showMessage("err", "Ky email nuk ekziston. Krijo account te Register.");
+        } else if (code.includes("auth/too-many-requests")){
+          showMessage("err", "Shumë tentativa. Provo prapë pas pak.");
+        } else {
+          showMessage("err", e.message);
+        }
+      }finally{
+        setLoading(false);
+      }
+    }
+
+    // Google login
+    async function loginWithGoogle(){
+      clearMessage();
+      try{
+        await signInWithPopup(auth, provider);
+        showMessage("ok", "Login me Google OK ✅ Po të ridrejtoj…");
+        setTimeout(() => (window.location.href = "/index.html"), 500);
+      }catch(e){
+        const code = (e?.code || "").toLowerCase();
+        if (code.includes("auth/popup-closed-by-user")){
+          showMessage("warn", "E mbylle popup-in. Provo prapë.");
+        } else if (code.includes("auth/cancelled-popup-request")){
+          showMessage("warn", "Popup request u anulua. Provo prapë.");
+        } else {
+          showMessage("err", e.message);
+        }
+      }
+    }
+
+    // Forgot password
+    async function forgotPassword(){
+      clearMessage();
+      const email = emailEl.value.trim();
+      if (!email){
+        showMessage("warn", "Shkruaje email-in lart, pastaj kliko Forgot.");
+        return;
+      }
+      try{
+        await sendPasswordResetEmail(auth, email);
+        showMessage("ok", "U dërgua linku për reset në email ✅");
+      }catch(e){
+        showMessage("err", e.message);
+      }
+    }
+
+    // Events
+    loginBtn.addEventListener("click", loginWithEmail);
+    document.getElementById("googleBtn").addEventListener("click", loginWithGoogle);
+    document.getElementById("forgotLink").addEventListener("click", (ev) => { ev.preventDefault(); forgotPassword(); });
+
+    // Enter key submit
+    [emailEl, passEl].forEach(el => {
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") loginWithEmail();
+      });
+    });
+  </script>
 </body>
 </html>
