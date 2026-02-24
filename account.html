@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Account • Flamur Jashari</title>
+  <meta name="color-scheme" content="dark" />
+  <style>
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: rgba(255,255,255,.92);
+      background: radial-gradient(1200px 800px at 15% 20%, rgba(56,189,248,.18), transparent 55%),
+                  radial-gradient(1100px 700px at 85% 25%, rgba(124,58,237,.16), transparent 55%),
+                  linear-gradient(180deg, #070b16, #0b1226);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:min(520px, 100%);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+    }
+    .head{
+      padding:18px 18px 14px 18px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .head b{font-size:18px}
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .btn:hover{background: rgba(255,255,255,.10)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(56,189,248,.95), rgba(124,58,237,.9));
+      color:#061019;
+    }
+    .btn.primary:hover{filter: brightness(1.04)}
+    .body{padding:18px}
+    .row{display:flex; gap:14px; align-items:center}
+    .avatar{
+      width:64px;height:64px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      display:grid; place-items:center;
+      font-weight:900;
+    }
+    .avatar img{width:100%; height:100%; object-fit:cover}
+    .meta{line-height:1.25}
+    .meta .name{font-size:18px; font-weight:900}
+    .meta .email{color: rgba(255,255,255,.65); margin-top:4px}
+    .box{
+      margin-top:14px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      color: rgba(255,255,255,.75);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+    a{color: rgba(56,189,248,.95); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .msg{
+      display:none;
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(239,68,68,.35);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 0 4px rgba(239,68,68,.10);
+      font-size:13px;
+    }
+    .msg.show{display:block}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="head">
+      <b>My Account</b>
+      <button class="btn" onclick="window.location.href='/index.html'">Home</button>
+    </div>
+
+    <div class="body">
+      <div class="row">
+        <div class="avatar" id="avatar">
+          <span id="initials">FJ</span>
+        </div>
+        <div class="meta">
+          <div class="name" id="name">Loading…</div>
+          <div class="email" id="email">—</div>
+        </div>
+      </div>
+
+      <div class="box">
+        Këtu shfaqen të dhënat e user-it nga Firebase Auth (name/email/photo).
+        Nëse s’je i kyçur, do të ridrejtohesh te login.
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="logoutBtn">Logout</button>
+        <button class="btn" id="reloadBtn">Refresh</button>
+        <a href="/login.html">Login</a>
+        <a href="/register.html">Register</a>
+      </div>
+
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
+      authDomain: "flamurjashariwebsite.firebaseapp.com",
+      projectId: "flamurjashariwebsite",
+      storageBucket: "flamurjashariwebsite.firebasestorage.app",
+      messagingSenderId: "960885072119",
+      appId: "1:960885072119:web:db76e098603ebfc32b73f2",
+      measurementId: "G-E148DJTD08"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const nameEl = document.getElementById("name");
+    const emailEl = document.getElementById("email");
+    const avatarEl = document.getElementById("avatar");
+    const initialsEl = document.getElementById("initials");
+    const msgEl = document.getElementById("msg");
+
+    function showError(t){
+      msgEl.textContent = t;
+      msgEl.classList.add("show");
+    }
+
+    function initialsFrom(user){
+      const base = (user.displayName || user.email || "User").trim();
+      const parts = base.split(/\s+/);
+      const a = (parts[0] || "U")[0];
+      const b = (parts[1] ? parts[1][0] : (base.includes("@") ? base[1] : "X"));
+      return (a + b).toUpperCase();
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user){
+        // s’je i kyçur -> login
+        window.location.href = "/login.html";
+        return;
+      }
+
+      nameEl.textContent = user.displayName || "User";
+      emailEl.textContent = user.email || "—";
+
+      const inits = initialsFrom(user);
+      initialsEl.textContent = inits;
+
+      // photo
+      if (user.photoURL){
+        avatarEl.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+      } else {
+        avatarEl.innerHTML = `<span id="initials">${inits}</span>`;
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "/login.html";
+    });
+
+    document.getElementById("reloadBtn").addEventListener("click", () => location.reload());
+  </script>
+</body>
+</html>
