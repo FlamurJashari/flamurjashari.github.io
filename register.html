@@ -1,59 +1,700 @@
 <!DOCTYPE html>
-<html>
+<html lang="sq">
 <head>
-  <title>Register</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Create Account • Flamur Jashari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+
+  <style>
+    :root{
+      --bg0:#070b16;
+      --bg1:#0b1226;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.5);
+      --brandA:#38bdf8;
+      --brandB:#7c3aed;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% 20%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(1100px 700px at 85% 25%, rgba(124,58,237,.16), transparent 55%),
+        radial-gradient(1000px 700px at 55% 85%, rgba(34,197,94,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+    }
+
+    .grid{
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity:.08;
+      mask-image: radial-gradient(circle at 50% 35%, rgba(0,0,0,1), rgba(0,0,0,.1) 55%, transparent 75%);
+      pointer-events:none;
+      transform: translateZ(0);
+    }
+
+    .blob{
+      position:fixed;
+      width:520px; height:520px;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity:.45;
+      pointer-events:none;
+      transform: translateZ(0);
+      animation: float 10s ease-in-out infinite;
+    }
+    .blob.one{left:-180px; top:-120px; background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.55), transparent 60%);}
+    .blob.two{right:-200px; top:-140px; background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.55), transparent 60%); animation-duration: 12s;}
+    .blob.three{left:10%; bottom:-260px; background: radial-gradient(circle at 30% 30%, rgba(34,197,94,.35), transparent 60%); animation-duration: 14s;}
+
+    @keyframes float{
+      0%,100%{transform: translate(0,0) scale(1)}
+      50%{transform: translate(18px, -14px) scale(1.04)}
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 16px;
+      position:relative;
+    }
+
+    .shell{
+      width:min(1040px, 100%);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+
+    @media (max-width: 900px){
+      body{overflow:auto}
+      .shell{grid-template-columns: 1fr}
+    }
+
+    .panel{
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      backdrop-filter: blur(14px);
+    }
+
+    /* left premium info */
+    .hero{
+      padding: 26px 26px 22px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .topline{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+
+    .logo{
+      width:44px; height:44px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(124,58,237,.85));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 25px rgba(56,189,248,.15);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+    .logo svg{width:26px; height:26px; opacity:.95}
+
+    .brandtext{line-height:1.1}
+    .brandtext .name{font-weight:800; letter-spacing:.2px}
+    .brandtext .tag{color: var(--muted); font-size: 13px; margin-top: 2px}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.15);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      letter-spacing:.25px;
+      white-space:nowrap;
+    }
+    .badge .dot{
+      width:8px;height:8px;border-radius:99px;
+      background: linear-gradient(90deg, var(--brandA), var(--brandB));
+      box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    .headline{
+      margin: 18px 0 10px;
+      font-size: 34px;
+      letter-spacing:-.6px;
+      font-weight: 900;
+    }
+    .sub{
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 54ch;
+    }
+
+    .bullets{
+      margin-top: 18px;
+      display:grid;
+      gap: 10px;
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+    }
+    .pill .i{
+      width:34px;height:34px;border-radius:12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      display:grid;place-items:center;
+      color: rgba(255,255,255,.9);
+      font-weight: 800;
+    }
+    .pill .t b{display:block}
+    .pill .t span{color: var(--muted2); font-size: 13px}
+
+    .footerline{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+    .footerline a{color: rgba(56,189,248,.9); text-decoration:none}
+    .footerline a:hover{text-decoration:underline}
+
+    /* right register card */
+    .auth{
+      padding: 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .auth h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:-.3px;
+    }
+    .auth p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form{margin-top: 18px; display:grid; gap: 12px}
+
+    .field{display:grid; gap: 6px}
+    .labelrow{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    label{font-size: 13px; color: rgba(255,255,255,.78)}
+    .hint{font-size: 12px; color: rgba(255,255,255,.5)}
+
+    .inputwrap{position:relative}
+    input{
+      width:100%;
+      padding: 12px 44px 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+      transition: border .2s;
+    }
+    input::placeholder{color: rgba(255,255,255,.35)}
+    input:focus{
+      border-color: rgba(56,189,248,.55);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    .iconbtn{
+      position:absolute;
+      right: 8px; top: 50%;
+      transform: translateY(-50%);
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.85);
+      display:grid; place-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .iconbtn:hover{background: rgba(255,255,255,.09)}
+
+    .actions{margin-top: 6px; display:grid; gap: 10px}
+
+    .btn{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      cursor:pointer;
+      font-weight: 800;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      transition: transform .06s ease, filter .2s ease, background .2s ease;
+      user-select:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(56,189,248,.95), rgba(124,58,237,.9));
+      border-color: rgba(255,255,255,.18);
+      color: #061019;
+    }
+    .btn.primary:hover{filter: brightness(1.04)}
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+    }
+    .btn.secondary:hover{background: rgba(255,255,255,.09)}
+    .btn[disabled]{opacity:.6; cursor:not-allowed}
+
+    .divider{
+      display:flex; align-items:center; gap: 12px;
+      margin: 6px 0;
+      color: rgba(255,255,255,.45);
+      font-size: 12.5px;
+    }
+    .divider:before,.divider:after{
+      content:"";
+      height:1px; flex:1;
+      background: rgba(255,255,255,.12);
+    }
+
+    .msg{
+      display:none;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+    .msg.show{display:block}
+    .msg.ok{border-color: rgba(34,197,94,.35); box-shadow: 0 0 0 4px rgba(34,197,94,.12)}
+    .msg.err{border-color: rgba(239,68,68,.35); box-shadow: 0 0 0 4px rgba(239,68,68,.10)}
+    .msg.warn{border-color: rgba(245,158,11,.35); box-shadow: 0 0 0 4px rgba(245,158,11,.10)}
+
+    .smalllinks{
+      margin-top: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+    }
+    .smalllinks a{color: rgba(56,189,248,.95); text-decoration:none}
+    .smalllinks a:hover{text-decoration:underline}
+
+    .checkrow{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .checkrow input{margin-top: 2px; width:18px; height:18px; padding:0}
+
+    .strength{
+      display:grid;
+      gap: 6px;
+      margin-top: -4px;
+    }
+    .bar{
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .bar > div{
+      height:100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(239,68,68,.9), rgba(245,158,11,.9), rgba(34,197,94,.9));
+      transition: width .25s ease;
+    }
+    .strength .txt{
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+    }
+
+    .gicon{width:18px;height:18px; display:block}
+  </style>
 </head>
-<body style="font-family: Arial; background:#0f172a; color:white; display:flex; justify-content:center; align-items:center; height:100vh;">
 
-<div style="background:#1e293b; padding:30px; border-radius:12px; width:320px;">
-  <h2>Register</h2>
+<body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+  <div class="grid"></div>
 
-  <input id="email" type="email" placeholder="Email" style="width:100%; padding:10px; margin:5px 0;">
-  <input id="password" type="password" placeholder="Password" style="width:100%; padding:10px; margin:5px 0;">
+  <div class="wrap">
+    <div class="shell">
 
-  <button onclick="registerUser()" style="width:100%; padding:10px; margin-top:10px;">Register</button>
+      <!-- Left: Premium info -->
+      <section class="panel hero" aria-label="Welcome panel">
+        <div class="topline">
+          <div class="brand">
+            <div class="logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8 9L4.5 12 8 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 9L19.5 12 16 15" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13.5 7.5L10.5 16.5" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="brandtext">
+              <div class="name">Flamur Jashari</div>
+              <div class="tag">Digital Solutions • IT Support</div>
+            </div>
+          </div>
 
-  <p style="margin-top:10px;">
-    Ke account? <a href="login.html" style="color:#38bdf8;">Login</a>
-  </p>
-</div>
+          <div class="badge" title="IT & Development">
+            <span class="dot"></span>
+            <span>IT • DEV</span>
+          </div>
+        </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        <div>
+          <div class="headline">Create your account.</div>
+          <div class="sub">
+            Regjistrohu për të aksesuar panelin dhe shërbimet. Password ruhet i enkriptuar nga Firebase.
+          </div>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
-    authDomain: "flamurjashariwebsite.firebaseapp.com",
-    projectId: "flamurjashariwebsite",
-    storageBucket: "flamurjashariwebsite.firebasestorage.app",
-    messagingSenderId: "960885072119",
-    appId: "1:960885072119:web:db76e098603ebfc32b73f2",
-    measurementId: "G-E148DJTD08"
-  };
+          <div class="bullets">
+            <div class="pill">
+              <div class="i">✅</div>
+              <div class="t">
+                <b>Email & Google</b>
+                <span>Dy mënyra regjistrimi / hyrjeje</span>
+              </div>
+            </div>
+            <div class="pill">
+              <div class="i">🔐</div>
+              <div class="t">
+                <b>Password Strength</b>
+                <span>Kontroll vizual + minimum 6 karaktere</span>
+              </div>
+            </div>
+            <div class="pill">
+              <div class="i">⚡</div>
+              <div class="t">
+                <b>Auto Login</b>
+                <span>Pas regjistrimit futesh direkt</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+        <div class="footerline">
+          <span>© <span id="year"></span> FlamurJashari</span>
+          <span>•</span>
+          <a href="/index.html">Kthehu te Home</a>
+        </div>
+      </section>
 
-  window.registerUser = async function () {
-    const email = document.getElementById("email").value.trim();
-    const pass = document.getElementById("password").value;
+      <!-- Right: Register -->
+      <section class="panel auth" aria-label="Register panel">
+        <h2>Register</h2>
+        <p>Krijo account me email/password ose vazhdo me Google.</p>
 
-    if (!email || !pass) {
-      alert("Plotëso email & password");
-      return;
+        <div id="msg" class="msg" role="status" aria-live="polite"></div>
+
+        <div class="form">
+          <div class="field">
+            <div class="labelrow">
+              <label for="email">Email</label>
+              <span class="hint">p.sh. you@example.com</span>
+            </div>
+            <div class="inputwrap">
+              <input id="email" type="email" placeholder="Email address" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="labelrow">
+              <label for="password">Password</label>
+              <span class="hint">min 6 chars</span>
+            </div>
+            <div class="inputwrap">
+              <input id="password" type="password" placeholder="Create a password" autocomplete="new-password" />
+              <button class="iconbtn" id="togglePw" type="button" aria-label="Show password">👁️</button>
+            </div>
+
+            <div class="strength" aria-label="Password strength">
+              <div class="bar"><div id="strengthBar"></div></div>
+              <div class="txt" id="strengthTxt">Strength: —</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="labelrow">
+              <label for="password2">Confirm Password</label>
+              <span class="hint">repeat</span>
+            </div>
+            <div class="inputwrap">
+              <input id="password2" type="password" placeholder="Confirm password" autocomplete="new-password" />
+              <button class="iconbtn" id="togglePw2" type="button" aria-label="Show password">👁️</button>
+            </div>
+          </div>
+
+          <div class="checkrow">
+            <input id="terms" type="checkbox" />
+            <div>
+              Pajtohem me kushtet e përdorimit dhe politikën e privatësisë.
+              <span style="display:block; color: rgba(255,255,255,.5); margin-top:4px;">
+                (Opsionale: më vonë mund t’i vendosësh si faqe “Terms” & “Privacy”.)
+              </span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="registerBtn" type="button">
+              <span id="registerText">Create Account</span>
+              <span id="registerSpinner" style="display:none;">⏳</span>
+            </button>
+
+            <div class="divider">ose</div>
+
+            <button class="btn secondary" id="googleBtn" type="button">
+              <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.774 32.655 29.291 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 16.108 19.007 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4c-7.682 0-14.344 4.337-17.694 10.691z"/>
+                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.197l-6.191-5.238C29.184 35.091 26.703 36 24 36c-5.27 0-9.737-3.319-11.292-7.946l-6.52 5.02C9.505 39.556 16.227 44 24 44z"/>
+                <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.721 2.022-2.093 3.748-3.894 4.965l.003-.002 6.191 5.238C36.951 39.005 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <div class="smalllinks">
+              <span>Ke account? <a href="/login.html">Login</a></span>
+              <span><a href="/index.html">Home</a></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    // Firebase config (yours)
+    const firebaseConfig = {
+      apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
+      authDomain: "flamurjashariwebsite.firebaseapp.com",
+      projectId: "flamurjashariwebsite",
+      storageBucket: "flamurjashariwebsite.firebasestorage.app",
+      messagingSenderId: "960885072119",
+      appId: "1:960885072119:web:db76e098603ebfc32b73f2",
+      measurementId: "G-E148DJTD08"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // UI
+    const msg = document.getElementById("msg");
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
+    const pass2El = document.getElementById("password2");
+    const termsEl = document.getElementById("terms");
+    const registerBtn = document.getElementById("registerBtn");
+    const registerText = document.getElementById("registerText");
+    const registerSpinner = document.getElementById("registerSpinner");
+
+    const strengthBar = document.getElementById("strengthBar");
+    const strengthTxt = document.getElementById("strengthTxt");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showMessage(type, text){
+      msg.className = "msg show " + type;
+      msg.textContent = text;
+    }
+    function clearMessage(){
+      msg.className = "msg";
+      msg.textContent = "";
+    }
+    function setLoading(isLoading){
+      registerBtn.disabled = isLoading;
+      registerText.style.display = isLoading ? "none" : "inline";
+      registerSpinner.style.display = isLoading ? "inline" : "none";
     }
 
-    try {
-      await createUserWithEmailAndPassword(auth, email, pass);
-      alert("Account u kriju 😎");
-      window.location.href = "login.html";
-    } catch (e) {
-      alert(e.message);
-    }
-  }
-</script>
+    // Toggle passwords
+    document.getElementById("togglePw").addEventListener("click", () => {
+      const isPw = passEl.type === "password";
+      passEl.type = isPw ? "text" : "password";
+      document.getElementById("togglePw").textContent = isPw ? "🙈" : "👁️";
+    });
+    document.getElementById("togglePw2").addEventListener("click", () => {
+      const isPw = pass2El.type === "password";
+      pass2El.type = isPw ? "text" : "password";
+      document.getElementById("togglePw2").textContent = isPw ? "🙈" : "👁️";
+    });
 
+    // Password strength (simple)
+    function scorePassword(p){
+      let score = 0;
+      if (!p) return 0;
+      if (p.length >= 6) score += 25;
+      if (p.length >= 10) score += 15;
+      if (/[A-Z]/.test(p)) score += 20;
+      if (/[0-9]/.test(p)) score += 20;
+      if (/[^A-Za-z0-9]/.test(p)) score += 20;
+      return Math.min(score, 100);
+    }
+    function updateStrength(){
+      const p = passEl.value;
+      const s = scorePassword(p);
+      strengthBar.style.width = s + "%";
+      let label = "Weak";
+      if (s >= 80) label = "Strong";
+      else if (s >= 55) label = "Good";
+      else if (s >= 30) label = "Fair";
+      strengthTxt.textContent = "Strength: " + label;
+    }
+    passEl.addEventListener("input", updateStrength);
+    updateStrength();
+
+    async function registerWithEmail(){
+      clearMessage();
+
+      const email = emailEl.value.trim();
+      const pass = passEl.value;
+      const pass2 = pass2El.value;
+
+      if (!email || !pass || !pass2){
+        showMessage("warn", "Plotëso të gjitha fushat.");
+        return;
+      }
+      if (pass.length < 6){
+        showMessage("warn", "Password duhet të ketë minimum 6 karaktere.");
+        return;
+      }
+      if (pass !== pass2){
+        showMessage("warn", "Password dhe Confirm Password nuk përputhen.");
+        return;
+      }
+      if (!termsEl.checked){
+        showMessage("warn", "Duhet të pranosh kushtet (checkbox).");
+        return;
+      }
+
+      try{
+        setLoading(true);
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+
+        // Optional: set display name from email (before @)
+        const displayName = email.split("@")[0];
+        try { await updateProfile(cred.user, { displayName }); } catch {}
+
+        showMessage("ok", "Account u kriju ✅ Po të fusim brenda…");
+        setTimeout(() => (window.location.href = "/index.html"), 650); // auto-login redirect
+      }catch(e){
+        const code = (e?.code || "").toLowerCase();
+        if (code.includes("auth/email-already-in-use")){
+          showMessage("err", "Ky email është përdorur. Provo Login.");
+        } else if (code.includes("auth/invalid-email")){
+          showMessage("err", "Email i pavlefshëm.");
+        } else if (code.includes("auth/weak-password")){
+          showMessage("err", "Password shumë i dobët.");
+        } else {
+          showMessage("err", e.message);
+        }
+      }finally{
+        setLoading(false);
+      }
+    }
+
+    async function registerWithGoogle(){
+      clearMessage();
+      if (!termsEl.checked){
+        showMessage("warn", "Duhet të pranosh kushtet (checkbox) para Google login.");
+        return;
+      }
+      try{
+        await signInWithPopup(auth, provider);
+        showMessage("ok", "Google login OK ✅ Po të ridrejtoj…");
+        setTimeout(() => (window.location.href = "/index.html"), 450);
+      }catch(e){
+        const code = (e?.code || "").toLowerCase();
+        if (code.includes("auth/popup-closed-by-user")){
+          showMessage("warn", "E mbylle popup-in. Provo prapë.");
+        } else {
+          showMessage("err", e.message);
+        }
+      }
+    }
+
+    document.getElementById("registerBtn").addEventListener("click", registerWithEmail);
+    document.getElementById("googleBtn").addEventListener("click", registerWithGoogle);
+
+    // Enter key submit
+    [emailEl, passEl, pass2El].forEach(el => {
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") registerWithEmail();
+      });
+    });
+  </script>
 </body>
 </html>
