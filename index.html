@@ -618,8 +618,19 @@
       <a href="#procesi" onclick="closeSidebar()"><span lang="sq">Si Punoj</span><span lang="en">Process</span></a>
       <a href="#faq" onclick="closeSidebar()"><span lang="sq">FAQ</span><span lang="en">FAQ</span></a>
       <a href="#contact" onclick="closeSidebar()"><span lang="sq">Kontakt</span><span lang="en">Contact</span></a>
-      <a href="/login.html" onclick="closeSidebar()"><span lang="sq">Login</span><span lang="en">Login</span></a>
-      <a href="/register.html" onclick="closeSidebar()"><span lang="sq">Register</span><span lang="en">Register</span></a>
+      
+      <a href="/login.html" class="guest-only" onclick="closeSidebar()"><span lang="sq">Login</span><span lang="en">Login</span></a>
+      <a href="/register.html" class="guest-only" onclick="closeSidebar()"><span lang="sq">Register</span><span lang="en">Register</span></a>
+
+      <div class="user-only" style="display: none; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);">
+         <span style="padding: 16px; color: var(--text);">
+           <span lang="sq">Profili:</span><span lang="en">Profile:</span> 
+           <b id="sidebar-user-name" style="color: var(--accent);"></b>
+         </span>
+         <a href="#" onclick="logout(event); closeSidebar();" style="color: #ef4444; font-weight: 600;">
+           <span lang="sq">Dil nga Llogaria</span><span lang="en">Logout</span>
+         </a>
+      </div>
     </div>
 
     <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
@@ -644,8 +655,20 @@
       <a href="#services"><span lang="sq">Shërbimet</span><span lang="en">Services</span></a>
       <a href="#procesi"><span lang="sq">Si Punoj</span><span lang="en">Process</span></a>
       <a href="#faq">FAQ</a>
-      <a href="/login.html"><span lang="sq">Login</span><span lang="en">Login</span></a>
-      <a href="/register.html"><span lang="sq">Register</span><span lang="en">Register</span></a>
+      
+      <a href="/login.html" class="guest-only"><span lang="sq">Login</span><span lang="en">Login</span></a>
+      <a href="/register.html" class="guest-only"><span lang="sq">Register</span><span lang="en">Register</span></a>
+
+      <div class="user-only" style="display: none; align-items: center; gap: 15px;">
+         <span style="color: var(--muted); font-size: 14px;">
+           <span lang="sq">Tung,</span><span lang="en">Hi,</span> 
+           <b id="nav-user-name" style="color: var(--accent);"></b>
+         </span>
+         <a href="#" onclick="logout(event)" style="color: #ef4444; font-weight: 600;">
+           <span lang="sq">Dil</span><span lang="en">Logout</span>
+         </a>
+      </div>
+
       <button class="lang-btn" onclick="toggleLang()">AL | EN</button>
     </nav>
 
@@ -905,7 +928,7 @@
           <div class="crypto-item">
             <div class="crypto-info">
               <div class="crypto-icon-box btc">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.055 10.322c1.096-.347 1.886-1.045 1.954-2.22.083-1.428-.868-2.18-2.614-2.348v-2.15h-1.637v2.105h-1.3v-2.105h-1.63v2.17h-2.583l.21 2.05s1.205.105 1.18.095c.656.065.776.5.755.79v6.52c.046.126-.145.316-.76.185.025.024-1.18-.095-1.18-.095l-.75 2.185h2.518v2.227h1.63v-2.188h1.306v2.188h1.638v-2.238c1.996-.104 3.444-1.01 3.23-2.73-.173-1.39-1.03-1.993-2.195-2.22zM10.82 8.414h1.75c1.157 0 1.97.585 1.97 1.54 0 .977-.852 1.62-2.074 1.62h-1.646V8.414zm2.08 6.476h-2.08v-2.775h2.155c1.235 0 2.21 1.68 0 1.055-.953 1.095-2.285 1.095z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.055 10.322c1.096-.347 1.886-1.045 1.954-2.22.083-1.428-.868-2.18-2.614-2.348v-2.15h-1.637v2.105h-1.3v-2.105h-1.63v2.17h-2.583l.21 2.05s1.205.105 1.18.095c.656.065.776.5.755.79v6.52c.046.126-.145.316-.76.185.025.024-1.18-.095-1.18-.095l-.75 2.185h2.518v2.227h1.63v-2.188h1.306v2.188h1.638v-2.238c1.996-.104 3.444-1.01 3.23-2.73-.173-1.39-1.03-1.993-2.195-2.22zM10.82 8.414h1.75c1.157 0 1.97 1.54 0 .977-.852 1.62-2.074 1.62h-1.646V8.414zm2.08 6.476h-2.08v-2.775h2.155c1.235 0 2.21 1.68 0 1.055-.953 1.095-2.285 1.095z"/></svg>
               </div>
               <div>
                 <span class="crypto-name">Bitcoin (BTC)</span>
@@ -1133,6 +1156,52 @@
         alert("Pati një gabim në kopjim. Ju lutem provoni përsëri.");
       });
     }
+
+    // ==========================================
+    // SISTEMI I KYÇJES (LOGIN / LOGOUT)
+    // ==========================================
+    function checkLoginState() {
+      // Kontrollojmë nëse kemi ruajtur të dhëna në localStorage
+      const loggedInUser = localStorage.getItem('loggedInUser');
+      
+      const guestElements = document.querySelectorAll('.guest-only');
+      const userElements = document.querySelectorAll('.user-only');
+      const navUserName = document.getElementById('nav-user-name');
+      const sidebarUserName = document.getElementById('sidebar-user-name');
+
+      if (loggedInUser) {
+        // Personi është i kyçur! Lexojmë të dhënat e tij.
+        const userData = JSON.parse(loggedInUser);
+        
+        // Fsheh butonat Login/Register
+        guestElements.forEach(el => el.style.display = 'none');
+        
+        // Shfaq Profilin dhe Logout
+        userElements.forEach(el => {
+          if(el.closest('.mini-nav')) el.style.display = 'inline-flex';
+          else el.style.display = 'flex';
+        });
+        
+        // Vendos emrin e përdoruesit në menu
+        if(navUserName) navUserName.textContent = userData.emri;
+        if(sidebarUserName) sidebarUserName.textContent = userData.emri;
+      } else {
+        // Personi NUK është i kyçur
+        guestElements.forEach(el => el.style.display = ''); 
+        userElements.forEach(el => el.style.display = 'none');
+      }
+    }
+
+    function logout(event) {
+      if(event) event.preventDefault(); // Parandalon kërcimin e faqes lart
+      // Fshin llogarinë nga memoria e shfletuesit
+      localStorage.removeItem('loggedInUser');
+      // Rifreskon faqen
+      window.location.reload();
+    }
+
+    // Ekzekuto kontrollin sapo të hapet faqja
+    document.addEventListener('DOMContentLoaded', checkLoginState);
   </script>
 </body>
 </html>
