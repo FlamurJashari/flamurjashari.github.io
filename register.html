@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="font-family: Arial; background:#0f172a; color:white; display:flex; justify-content:center; align-items:center; height:100vh;">
+
+<div style="background:#1e293b; padding:30px; border-radius:12px; width:320px;">
+  <h2>Register</h2>
+
+  <input id="email" type="email" placeholder="Email" style="width:100%; padding:10px; margin:5px 0;">
+  <input id="password" type="password" placeholder="Password" style="width:100%; padding:10px; margin:5px 0;">
+
+  <button onclick="registerUser()" style="width:100%; padding:10px; margin-top:10px;">Register</button>
+
+  <p style="margin-top:10px;">
+    Ke account? <a href="login.html" style="color:#38bdf8;">Login</a>
+  </p>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6VhUfEn-CBkUK-5ibLCck37BzmmHsdnw",
+    authDomain: "flamurjashariwebsite.firebaseapp.com",
+    projectId: "flamurjashariwebsite",
+    storageBucket: "flamurjashariwebsite.firebasestorage.app",
+    messagingSenderId: "960885072119",
+    appId: "1:960885072119:web:db76e098603ebfc32b73f2",
+    measurementId: "G-E148DJTD08"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.registerUser = async function () {
+    const email = document.getElementById("email").value.trim();
+    const pass = document.getElementById("password").value;
+
+    if (!email || !pass) {
+      alert("Plotëso email & password");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, pass);
+      alert("Account u kriju 😎");
+      window.location.href = "login.html";
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+</script>
+
+</body>
+</html>
