@@ -115,7 +115,8 @@
     /* KONTROLLI I GJUHËS */
     [lang="en"] { display: none; }
     body.gjuha-en [lang="sq"] { display: none !important; }
-    body.gjuha-en [lang="en"] { display: inline-block !important; }
+    /* Display inline rregullon rrjedhjen e tekstit brenda paragrafëve */
+    body.gjuha-en [lang="en"] { display: inline !important; }
 
     .wrap{max-width:1020px; margin:0 auto; padding:20px 24px 80px; position:relative; z-index:1;}
 
@@ -123,7 +124,7 @@
        SHTESA PËR MENUNË E MOBILE (HAMBURGER & SIDEBAR)
        ========================================================= */
     #hamburger-btn {
-      display: none; /* Fshehur në Desktop */
+      display: none; 
       position: fixed;
       top: 16px;
       left: 16px;
@@ -245,7 +246,6 @@
       color: #ef4444;
       border-color: rgba(239, 68, 68, 0.2);
     }
-    /* ========================================================= */
 
     /* Sticky Mini-Nav + Language Button (Për Desktop) */
     .mini-nav {
@@ -286,9 +286,7 @@
       padding: 0;
       transition: all 0.2s;
     }
-    .mini-nav button.navLogout:hover {
-      color: #fca5a5;
-    }
+    .mini-nav button.navLogout:hover { color: #fca5a5; }
 
     .lang-btn {
       background: rgba(56,189,248,0.1); border: 1px solid var(--accent);
@@ -303,13 +301,18 @@
       display:flex;
       flex-direction: column;
       align-items:flex-start;
-      justify-content:space-between;
       width: 100%;
       gap:24px;
       padding-top:10px;
     }
-    @media (min-width: 768px) {
-      .top { flex-direction: row; align-items: center; }
+
+    .top-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .brand{ display:flex; flex-direction:column; gap:16px; width: 100%; }
@@ -453,12 +456,6 @@
       .mini-nav { display: none !important; } 
       #hamburger-btn { display: flex; } 
       .top { padding-top: 55px; } 
-      
-      .logo-it {
-        position: absolute; top: 16px; right: 0;
-        transform: scale(0.85); transform-origin: top right;
-      }
-      .pill { max-width: calc(100% - 100px); }
       .brand .btnrow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
       .brand .btn { width: 100%; padding: 14px 8px; font-size: 15px;}
       .brand .btnrow .btn:nth-child(3) { grid-column: 1 / -1; }
@@ -531,6 +528,11 @@
     .stars { display: flex; gap: 4px; margin-bottom: 12px; color: #fbbf24; }
     .stars svg { width: 18px; height: 18px; fill: currentColor; }
 
+    /* Projects (Work) Section - Micro UX Addition */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 16px; width: 100%; }
+    .project-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; transition: border-color 0.3s ease;}
+    .project-card:hover { border-color: rgba(56, 189, 248, 0.3); }
+
     /* FAQ */
     .faq-list { width: 100%; margin-top: 20px; }
     details { background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05); border-radius: 16px; margin-bottom: 12px; overflow: hidden; transition: all 0.3s ease; }
@@ -551,7 +553,7 @@
     }
     .input-style:focus { border-color: var(--accent); outline: none; background: rgba(255,255,255,0.05); }
 
-    /* Modal Styles */
+    /* Modal Styles - Permiresuar per Accessibility */
     .modal {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8);
       backdrop-filter: blur(10px); display: none; align-items: center;
@@ -563,9 +565,11 @@
       padding: 40px; border-radius: var(--radius); max-width: 600px;
       max-height: 80vh; overflow-y: auto; position: relative;
     }
+    .modal-content:focus { outline: none; }
     .close-modal {
-      position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--muted); font-weight: bold;
+      position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--muted); font-weight: bold; background: none; border: none; font-size: 14px; font-family: inherit;
     }
+    .close-modal:hover { color: var(--text); }
 
     .reveal{ opacity:0; transform: translateY(20px); transition: opacity .7s cubic-bezier(0.4, 0, 0.2, 1), transform .7s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity, transform; }
     .reveal.show{ opacity:1; transform: translateY(0); }
@@ -685,9 +689,15 @@
     </nav>
 
     <section class="top reveal">
-      <div class="brand">
+      <div class="top-header-row">
         <div class="pill">Digital Solutions • IT Support</div>
+        <div class="logo-it" aria-label="IT badge">
+          <span aria-hidden="true">💻</span>
+          <span>IT • DEV</span>
+        </div>
+      </div>
 
+      <div class="brand">
         <h1>Flamur Jashari <span aria-hidden="true">👋</span></h1>
 
         <p class="lead">
@@ -696,7 +706,7 @@
         </p>
 
         <div class="btnrow">
-          <a class="btn primary" href="#contact" aria-label="Konsultim Falas">
+          <a class="btn primary" href="#contact" aria-label="Shko te seksioni i Kontaktit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
             <span lang="sq">Konsultim Falas</span><span lang="en">Free Consultation</span>
           </a>
@@ -721,12 +731,6 @@
             Albania / Tiranë
           </div>
         </div>
-
-      </div>
-
-      <div class="logo-it" aria-label="IT badge">
-        <span aria-hidden="true">💻</span>
-        <span>IT • DEV</span>
       </div>
     </section>
 
@@ -856,6 +860,30 @@
       </div>
     </section>
 
+    <section id="projekte" class="grid" style="margin-top:24px">
+      <div class="card reveal">
+        <h2><span lang="sq">Fokus në Zgjidhje</span><span lang="en">Solutions Delivered</span></h2>
+        <p>
+          <span lang="sq">Shembuj sistemesh apo infrastrukturash teknologjike që zhvilloj.</span>
+          <span lang="en">Examples of technical infrastructure and digital systems I build.</span>
+        </p>
+        <div class="projects-grid">
+          <div class="project-card">
+            <h3 style="margin: 0 0 8px; font-size: 18px;">E-Commerce Platform</h3>
+            <p class="muted" style="margin:0; font-size: 14px;">Next.js, Tailwind CSS, API Integrations</p>
+          </div>
+          <div class="project-card">
+            <h3 style="margin: 0 0 8px; font-size: 18px;">Corporate Network IT</h3>
+            <p class="muted" style="margin:0; font-size: 14px;">Server Setup, pfSense, Secure VPN</p>
+          </div>
+          <div class="project-card">
+            <h3 style="margin: 0 0 8px; font-size: 18px;">Custom Business App</h3>
+            <p class="muted" style="margin:0; font-size: 14px;">Firebase, React, Realtime Database</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="klientet" class="grid" style="margin-top:24px">
       <div class="card half reveal" style="display: flex; flex-direction: column; justify-content: center;">
         <div class="stars">
@@ -866,11 +894,11 @@
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
         <p style="font-size: 17px; color: var(--text); font-weight: 500;">
-          <span lang="sq">"Flamuri na optimizoi faqen, speed u rrit shumë."</span>
-          <span lang="en">"Flamur optimized our site, the speed increased massively."</span>
+          <span lang="sq">"Flamuri na optimizoi faqen dhe zgjidhi problemet me emailet e biznesit, performanca u rrit dukshëm."</span>
+          <span lang="en">"Flamur optimized our site and solved our business email issues, performance increased noticeably."</span>
         </p>
         <div style="margin-top: 12px; color: var(--muted); font-size: 14px;">
-          — <span lang="sq">Klient Lokal</span><span lang="en">Local Client</span>
+          — <span lang="sq">Pronar Restoranti, Tiranë</span><span lang="en">Restaurant Owner, Tirana</span>
         </div>
       </div>
       
@@ -883,11 +911,11 @@
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
         <p style="font-size: 17px; color: var(--text); font-weight: 500;">
-          <span lang="sq">"Shumë korrekt dhe i shpejtë në përfundimin e punës."</span>
-          <span lang="en">"Very correct and fast in finishing the work."</span>
+          <span lang="sq">"Shumë korrekt me afatet dhe tejet profesional në ofrimin e suportit teknik."</span>
+          <span lang="en">"Very accurate with deadlines and highly professional in providing technical support."</span>
         </p>
         <div style="margin-top: 12px; color: var(--muted); font-size: 14px;">
-          — <span lang="sq">Biznes Partner</span><span lang="en">Business Partner</span>
+          — <span lang="sq">Tech Startup Founder</span><span lang="en">Tech Startup Founder</span>
         </div>
       </div>
     </section>
@@ -932,8 +960,8 @@
         
         <p style="font-size: 14px; color: #fbbf24; background: rgba(251, 191, 36, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(251, 191, 36, 0.2);">
           <b><span lang="sq">Kujdes:</span><span lang="en">Warning:</span></b> 
-          <span lang="sq">Sigurohuni të zgjidhni <u>rrjetin e saktë</u> kur dërgoni Kripto.</span>
-          <span lang="en">Make sure to select the <u>correct network</u> when sending Crypto.</span>
+          <span lang="sq">Sigurohuni të zgjidhni <u>rrjetin e saktë</u>. Shuma minimale: $50 ose ekuivalenti. Përpara nisjes, ju lutem më kontaktoni.</span>
+          <span lang="en">Make sure to select the <u>correct network</u>. Minimum amount: $50 equivalent. Please contact me before sending.</span>
         </p>
 
         <div class="crypto-list">
@@ -947,7 +975,7 @@
                 <span class="crypto-net">Rrjeti: Bitcoin Network</span>
               </div>
             </div>
-            <button class="btn-copy" onclick="copyCrypto('3GDABBS8Fo6MUwX4XpvScsCMFbG5YRt94o', this)">
+            <button class="btn-copy" aria-label="Kopjo Bitcoin Adresën" onclick="copyCrypto('3GDABBS8Fo6MUwX4XpvScsCMFbG5YRt94o', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               <span lang="sq">Kopjo Adresën</span><span lang="en">Copy Address</span>
             </button>
@@ -960,10 +988,10 @@
               </div>
               <div>
                 <span class="crypto-name">Ethereum (ETH)</span>
-                <span class="crypto-net">Rrjeti: ERC-20 / BEP-20</span>
+                <span class="crypto-net">Rrjeti: ERC-20 (Ethereum Network)</span>
               </div>
             </div>
-            <button class="btn-copy" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
+            <button class="btn-copy" aria-label="Kopjo Ethereum Adresën" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               <span lang="sq">Kopjo Adresën</span><span lang="en">Copy Address</span>
             </button>
@@ -976,10 +1004,10 @@
               </div>
               <div>
                 <span class="crypto-name">Tether (USDT)</span>
-                <span class="crypto-net">Rrjeti: ERC-20 / BEP-20</span>
+                <span class="crypto-net">Rrjeti: ERC-20 (Ethereum Network)</span>
               </div>
             </div>
-            <button class="btn-copy" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
+            <button class="btn-copy" aria-label="Kopjo USDT Adresën" onclick="copyCrypto('0xb732C4a073AD8075520652acD6547dE6e8d1D39C', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               <span lang="sq">Kopjo Adresën</span><span lang="en">Copy Address</span>
             </button>
@@ -992,7 +1020,10 @@
     <section id="contact" class="grid" style="margin-top:24px">
       <div class="card reveal">
         <h2><span lang="sq">Fillo Projektin Tënd Sot</span><span lang="en">Start Your Project Today</span></h2>
-        <p><span lang="sq">Keni një projekt në mendje? Plotësoni formën më poshtë ose më shkruani direkt.</span><span lang="en">Have a project in mind? Fill out the form below or message me directly.</span></p>
+        <p>
+          <span lang="sq">Keni një projekt në mendje? Plotësoni formën më poshtë ose më shkruani direkt. <b style="color:var(--text)">Përgjigje zakonisht brenda 2 orëve.</b></span>
+          <span lang="en">Have a project in mind? Fill out the form below or message me directly. <b style="color:var(--text)">Reply usually within 2 hours.</b></span>
+        </p>
 
         <form action="https://formspree.io/f/mreaolbo" method="POST" class="contact-form">
           <div class="form-group">
@@ -1054,29 +1085,29 @@
 
     <div class="footer reveal">
       <div class="footer-links">
-        <a onclick="openModal('privacyModal')">Privacy Policy</a>
-        <a onclick="openModal('termsModal')">Terms of Service</a>
+        <a onclick="openModal('privacyModal')" role="button" tabindex="0">Privacy Policy</a>
+        <a onclick="openModal('termsModal')" role="button" tabindex="0">Terms of Service</a>
       </div>
       © <span id="y"></span> Flamur Jashari. All rights reserved.
     </div>
   </main>
 
-  <div id="privacyModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeModal('privacyModal')">✕ Close</span>
-      <h2>Privacy Policy</h2>
+  <div id="privacyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-modal" aria-label="Mbyll modalin" onclick="closeModal('privacyModal')">✕ Close</button>
+      <h2 id="privacyTitle">Privacy Policy</h2>
       <p style="color: var(--muted);">
         <b>1. Data Collection:</b> We collect basic contact info (name, email) solely for the purpose of communicating with clients regarding potential projects.<br><br>
-        <b>2. Data Protection:</b> Your information is never sold or shared with third parties. Forms are processed securely.<br><br>
+        <b>2. Data Protection:</b> Your information is never sold or shared with third parties. Forms are securely processed by <b>Formspree</b>. Messages and contact details are retained for up to 30 days for customer service purposes before being securely deleted.<br><br>
         <b>3. Payments:</b> All transactions are processed via secure third-party gateways (PayPal) or decentralized blockchain networks. We do not store sensitive payment details on our servers.
       </p>
     </div>
   </div>
 
-  <div id="termsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeModal('termsModal')">✕ Close</span>
-      <h2>Terms of Service</h2>
+  <div id="termsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-modal" aria-label="Mbyll modalin" onclick="closeModal('termsModal')">✕ Close</button>
+      <h2 id="termsTitle">Terms of Service</h2>
       <p style="color: var(--muted);">
         <b>1. Services:</b> All web development and IT support services require a prior consultation and agreed-upon scope of work.<br><br>
         <b>2. Payments:</b> Invoices are sent via email. For crypto transactions, clients are responsible for ensuring the correct network is used. Funds lost due to incorrect network selection cannot be recovered.<br><br>
@@ -1114,19 +1145,41 @@
       document.body.classList.toggle('gjuha-en');
     }
 
+    // Menaxhimi profesional i Modaleve (Accessibility)
     function openModal(id) {
-      document.getElementById(id).classList.add('active');
-    }
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
+      const modal = document.getElementById(id);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // Vendos fokusin brenda per t'i dhene kontekst screen readers
+      const content = modal.querySelector('.modal-content');
+      if (content) content.focus();
     }
     
-    window.onclick = function(event) {
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Mbyllja me klik jashte (overlay)
+    window.addEventListener('click', function(event) {
       if (event.target.classList.contains('modal')) {
         event.target.classList.remove('active');
+        document.body.style.overflow = '';
       }
-    }
+    });
 
+    // Mbyllja me butonin Escape nga tastiera
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+          activeModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // Intersection Observer per animacionet "Reveal"
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1138,6 +1191,7 @@
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
+    // Funksioni per kopjimin e Crypto
     function copyCrypto(address, btn) {
       navigator.clipboard.writeText(address).then(() => {
         const originalHTML = btn.innerHTML;
@@ -1179,7 +1233,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Kemi përdorur querySelectorAll për të targetuar njëkohësisht Menunë e Desktopit dhe atë Mobile
     const navLogins = document.querySelectorAll(".navLogin");
     const navRegisters = document.querySelectorAll(".navRegister");
     const navAccounts = document.querySelectorAll(".navAccount");
@@ -1193,7 +1246,6 @@
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // Logged In
         show(navLogins, false);
         show(navRegisters, false);
 
@@ -1204,7 +1256,6 @@
           el.textContent = user.displayName ? `My Account (${user.displayName})` : "My Account";
         });
       } else {
-        // Logged Out
         show(navLogins, true);
         show(navRegisters, true);
 
